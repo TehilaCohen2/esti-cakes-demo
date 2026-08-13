@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אסתי קונדיטוריה</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--ink:#161616;--gold:#C9963A;--goldd:#A87A28;--bg:#F0EDE4;--card:#fff;--border:#E3DBC9;--ok:#2E9E6B;--warn:#D97706;--red:#DC2626;--muted:#6E6455;--text:#2A2620}
+body{font-family:'IBM Plex Sans Hebrew',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
+/* NAV */
+nav{background:var(--ink);display:flex;align-items:center;padding:0 18px;height:50px;gap:4px;position:sticky;top:0;z-index:50;flex-shrink:0}
+nav .logo{color:var(--gold);font-weight:700;font-size:16px;margin-left:18px;white-space:nowrap}
+.ntab{background:none;border:none;color:#aaa;font:600 13px 'IBM Plex Sans Hebrew',sans-serif;padding:6px 12px;border-radius:8px;cursor:pointer}
+.ntab:hover{background:rgba(201,150,58,.2);color:var(--gold)}
+.ntab.on{background:rgba(201,150,58,.25);color:var(--gold)}
+.demo-tag{margin-right:auto;background:rgba(201,150,58,.2);color:var(--gold);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;border:1px solid rgba(201,150,58,.35);letter-spacing:.1em}
+/* PAGES */
+.page{display:none;flex:1;overflow-y:auto;padding:20px}
+.page.on{display:block}
+/* CARDS */
+.card{background:var(--card);border:1px solid #E9E3D6;border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.sec{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sec::before{content:"";width:4px;height:16px;background:var(--gold);border-radius:2px}
+/* BUTTONS */
+button{font-family:'IBM Plex Sans Hebrew',sans-serif;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:100px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:.12s}
+.btn-gold{background:var(--gold);color:#fff}.btn-gold:hover{background:var(--goldd)}
+.btn-out{background:transparent;border:1.5px solid var(--border);color:var(--ink)}.btn-out:hover{border-color:var(--gold);color:var(--gold)}
+.btn-ok{background:var(--ok);color:#fff}.btn-ok:hover{opacity:.88}
+.btn-sm{padding:5px 11px;font-size:12px}
+/* TABLE */
+.tbl-wrap{border-radius:10px;overflow:hidden;border:1px solid #E9E3D6;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{background:var(--ink);color:#F2EDE3;padding:9px 12px;text-align:right;font-size:12px;font-weight:600}
+td{padding:9px 12px;border-bottom:1px solid #F5F0E8;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#FAFAF6}
+/* BADGE */
+.bx{display:inline-block;padding:2px 9px;border-radius:100px;font-size:11px;font-weight:700}
+.bx-ok{background:#DCFCE7;color:#166534}.bx-warn{background:#FEF3C7;color:#92400E}
+.bx-red{background:#FEE2E2;color:#991B1B}.bx-gray{background:#F3F4F6;color:#374151}
+.bx-blue{background:#DBEAFE;color:#1E40AF}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid #E9E3D6;border-radius:10px;padding:12px 14px}
+.kpi .num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700}
+.kpi .lbl{font-size:11.5px;color:var(--muted);margin-top:2px}
+.num.ok{color:var(--ok)}.num.warn{color:var(--warn)}.num.red{color:var(--red)}
+/* ACTIONS BAR */
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+/* MODAL */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.ov.on{display:flex}
+.modal{background:var(--card);border-radius:14px;padding:22px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.mhead h3{font-size:17px;font-weight:700}
+.mclose{background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;line-height:1;padding:0 4px}
+.mclose:hover{color:var(--ink)}
+/* FORM */
+.field{margin-bottom:11px}
+.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:4px}
+.field input,.field select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit;color:var(--text);background:#fff}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+/* ORDER ITEM */
+.oi{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #E9E3D6;border-radius:9px;margin-bottom:7px;background:#fff}
+.oi .name{flex:1;font-size:13px;font-weight:600}
+.oi .price{font-size:11.5px;color:var(--muted);margin-right:4px}
+.qc{display:flex;align-items:center;gap:6px}
+.qbtn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.1s;line-height:1;color:var(--ink)}
+.qbtn:hover{border-color:var(--gold);color:var(--gold)}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;min-width:26px;text-align:center}
+.ct-sel{border:1.5px solid var(--border);border-radius:7px;padding:3px 7px;font-size:11.5px;font-family:inherit;background:#fff;color:var(--text);cursor:pointer}
+/* DELIVERY */
+.city-hdr{background:var(--ink);color:var(--gold);padding:6px 14px;font-size:13px;font-weight:700;border-radius:8px;margin:12px 0 7px}
+/* FILTER */
+.fbtn{border:1.5px solid var(--border);background:var(--card);border-radius:100px;padding:5px 14px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;transition:.12s;font-family:inherit}
+.fbtn:hover{border-color:var(--gold);color:var(--gold)}
+.fbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+input[type=search]{border:1.5px solid var(--border);border-radius:8px;padding:6px 11px;font-size:13px;font-family:inherit;background:#fff;color:var(--text)}
+input[type=search]:focus{outline:none;border-color:var(--gold)}
+/* TOAST */
+.toast{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);background:var(--ink);color:#F2EDE3;padding:10px 22px;border-radius:100px;font-size:13.5px;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
+.toast.on{opacity:1}
+/* FOOTER */
+footer{background:#111;color:rgba(255,255,255,.35);text-align:center;font-size:11px;padding:7px;flex-shrink:0;position:sticky;bottom:0;z-index:50}
+footer b{color:var(--gold)}
+.week-skip{opacity:.4}
+.empty-state{text-align:center;padding:40px 20px;color:var(--muted)}
+.empty-state .icon{font-size:38px;margin-bottom:10px}
+.empty-state h3{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.empty-state p{font-size:13px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🎂 אסתי קונדיטוריה</div>
+  <button class="ntab on" id="tab-dash">דשבורד</button>
+  <button class="ntab" id="tab-week">הזמנות שבועיות</button>
+  <button class="ntab" id="tab-del">תעודות משלוח</button>
+  <button class="ntab" id="tab-inv">חשבוניות</button>
+  <button class="ntab" id="tab-pay">תשלומים</button>
+  <button class="ntab" id="tab-clients">לקוחות</button>
+  <div class="demo-tag">DEMO</div>
+</nav>
+
+<!-- DASHBOARD -->
+<div class="page on" id="page-dash">
+  <div class="kpis">
+    <div class="kpi"><div class="num" id="kpi-tot">15</div><div class="lbl">לקוחות רשומים</div></div>
+    <div class="kpi"><div class="num" id="kpi-units">—</div><div class="lbl">יחידות לייצור</div></div>
+    <div class="kpi"><div class="num ok">₪18,420</div><div class="lbl">צפי גבייה</div></div>
+    <div class="kpi"><div class="num warn" id="kpi-debts">0</div><div class="lbl">חובות פתוחים</div></div>
+    <div class="kpi"><div class="num red" id="kpi-red">0</div><div class="lbl">חוב אדום</div></div>
+  </div>
+  <div class="card">
+    <div class="sec">🔔 התראות</div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>סוג</th><th>לקוח</th><th>פרטים</th></tr></thead>
+      <tbody>
+        <tr><td><span class="bx bx-red">חוב אדום</span></td><td>מאפיית הלב, בני ברק</td><td>₪2,100 — 62 יום</td></tr>
+        <tr><td><span class="bx bx-warn">צ'ק בפירעון</span></td><td>מינימרקט שמש, ירושלים</td><td>צ'ק #4421 — מחר</td></tr>
+        <tr><td><span class="bx bx-blue">חזר מדילוג</span></td><td>קפה רינה, ירושלים</td><td>חוזר השבוע</td></tr>
+        <tr><td><span class="bx bx-gray">עלות</span></td><td>מוצרי חלב</td><td>מחיר חלב עלה — בדקי עלויות</td></tr>
+      </tbody></table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="sec">📦 רשימת ייצור</div>
+    <div id="dash-prod" style="color:var(--muted);font-size:13.5px">פתחי שבוע חדש כדי לראות את רשימת הייצור</div>
+  </div>
+</div>
+
+<!-- WEEK -->
+<div class="page" id="page-week">
+  <div class="acts">
+    <button class="btn btn-gold" id="btn-open-week">+ פתח שבוע חדש</button>
+    <button class="btn btn-out" id="btn-confirm-orders">✅ אישור הזמנות</button>
+    <span id="week-lbl" style="font-size:12.5px;color:var(--muted)"></span>
+  </div>
+  <div id="week-empty" class="card empty-state">
+    <div class="icon">📋</div>
+    <h3>אין שבוע פתוח</h3>
+    <p>לחצי על "פתח שבוע חדש" לייצר את גיליון השבוע</p>
+  </div>
+  <div id="week-content" style="display:none">
+    <div class="kpis" id="week-kpis"></div>
+    <div class="tbl-wrap">
+      <table><thead><tr><th>לקוח</th><th>עיר</th><th>הזמנה</th><th>יח' / סכום</th><th>סטטוס</th><th>פעולות</th></tr></thead>
+      <tbody id="week-body"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- DELIVERY -->
+<div class="page" id="page-del">
+  <div class="acts" style="flex-wrap:wrap;gap:6px">
+    <button class="fbtn on" data-city="all">הכל</button>
+    <button class="fbtn" data-city="בני ברק">בני ברק</button>
+    <button class="fbtn" data-city="ירושלים">ירושלים</button>
+    <button class="fbtn" data-city="תל אביב">תל אביב</button>
+    <button class="fbtn" data-city="רחובות">רחובות</button>
+    <button class="fbtn" data-city="פתח תקווה">פ"ת</button>
+    <input type="search" id="del-search" placeholder="חיפוש לקוח..." style="margin-right:auto;width:160px">
+    <button class="btn btn-out btn-sm" id="btn-sort-alpha">מיון א–ב</button>
+    <button class="btn btn-out btn-sm" id="btn-sort-city">לפי עיר</button>
+    <button class="btn btn-ok" id="btn-print">🖨️ הדפס הכל</button>
+  </div>
+  <div id="del-list"></div>
+</div>
+
+<!-- INVOICES -->
+<div class="page" id="page-inv">
+  <div class="acts">
+    <button class="btn btn-ok" id="btn-gen-inv">הפק חשבוניות לכולם</button>
+    <button class="btn btn-out" id="btn-export-xls">ייצוא Excel</button>
+  </div>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>שם לחשבונית</th><th>שם חנות</th><th>יחידות</th><th>חזרות</th><th>נטו</th><th>מע"מ</th><th>סה"כ</th><th>סטטוס</th><th></th></tr></thead>
+    <tbody id="inv-body"></tbody></table>
+  </div>
+</div>
+
+<!-- PAYMENTS -->
+<div class="page" id="page-pay">
+  <div class="kpis">
+    <div class="kpi"><div class="num ok">₪11,840</div><div class="lbl">שולם החודש</div></div>
+    <div class="kpi"><div class="num warn">₪6,580</div><div class="lbl">ממתין</div></div>
+    <div class="kpi"><div class="num red">₪2,100</div><div class="lbl">חוב אדום</div></div>
+    <div class="kpi"><div class="num">3</div><div class="lbl">צ'קים בהמתנה</div></div>
+  </div>
+  <div class="acts"><button class="btn btn-gold" id="btn-add-pay">+ רשום תשלום</button></div>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>לקוח</th><th>חוב</th><th>אמצעי</th><th>תנאים</th><th>סטטוס</th><th></th></tr></thead>
+    <tbody id="pay-body"></tbody></table>
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<div class="page" id="page-clients">
+  <div class="acts">
+    <button class="btn btn-gold" id="btn-new-client">+ לקוח חדש</button>
+    <input type="search" id="client-search" placeholder="חיפוש..." style="margin-right:auto;width:180px">
+  </div>
+  <div class="tbl-wrap">
+    <table><thead><tr><th>שם חנות</th><th>שם לחשבונית</th><th>עיר</th><th>מע"מ</th><th>תשלום</th><th>הזמנה קבועה</th><th></th></tr></thead>
+    <tbody id="clients-body"></tbody></table>
+  </div>
+</div>
+
+<!-- MODAL: ORDER -->
+<div class="ov" id="ov-order">
+  <div class="modal">
+    <div class="mhead"><h3 id="order-title">הזמנה</h3><button class="mclose" id="close-order">×</button></div>
+    <div id="order-body"></div>
+    <div class="acts" style="margin-top:10px">
+      <button class="btn btn-gold" id="btn-save-order">💾 שמור</button>
+      <button class="btn btn-out" id="cancel-order">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: CLIENT -->
+<div class="ov" id="ov-client">
+  <div class="modal">
+    <div class="mhead"><h3 id="client-modal-title">לקוח חדש</h3><button class="mclose" id="close-client">×</button></div>
+    <div class="row2">
+      <div class="field"><label>שם חנות</label><input id="nc-store" placeholder="חנות ההנאה"></div>
+      <div class="field"><label>שם לחשבונית</label><input id="nc-inv" placeholder="א. כהן מסחר"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>עיר</label><select id="nc-city"><option>בני ברק</option><option>ירושלים</option><option>תל אביב</option><option>רחובות</option><option>פתח תקווה</option><option>אשדוד</option></select></div>
+      <div class="field"><label>כתובת</label><input id="nc-addr" placeholder="רחוב, מספר"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>טלפון</label><input id="nc-phone" placeholder="050-0000000"></div>
+      <div class="field"><label>מע"מ</label><select id="nc-vat"><option value="yes">עם מע"מ</option><option value="no">ללא מע"מ</option></select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>אמצעי תשלום</label><select id="nc-pay"><option>העברה בנקאית</option><option>צ'ק</option><option>Bit</option></select></div>
+      <div class="field"><label>תנאי תשלום</label><select id="nc-terms"><option>שוטף</option><option>שוטף+30</option><option>שוטף+60</option></select></div>
+    </div>
+    <div style="font-size:13.5px;font-weight:700;margin:12px 0 8px">הזמנה קבועה שבועית</div>
+    <div id="nc-prods"></div>
+    <div class="acts" style="margin-top:12px">
+      <button class="btn btn-gold" id="btn-save-client">שמור לקוח</button>
+      <button class="btn btn-out" id="cancel-client">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: PAYMENT -->
+<div class="ov" id="ov-pay">
+  <div class="modal" style="max-width:380px">
+    <div class="mhead"><h3>רישום תשלום</h3><button class="mclose" id="close-pay">×</button></div>
+    <div class="field"><label>לקוח</label><select id="pay-client" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit"></select></div>
+    <div class="row2">
+      <div class="field"><label>סכום (₪)</label><input id="pay-amount" type="number" placeholder="0"></div>
+      <div class="field"><label>אמצעי</label><select id="pay-method" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit"><option>העברה בנקאית</option><option>צ'ק</option><option>Bit</option></select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>תאריך</label><input id="pay-date" type="date"></div>
+      <div class="field"><label>אסמכתה</label><input id="pay-note" placeholder="הערה / מס' צ'ק"></div>
+    </div>
+    <button class="btn btn-ok" id="btn-save-pay">✅ אשר תשלום</button>
+  </div>
+</div>
+
+<!-- MODAL: CONFIRM -->
+<div class="ov" id="ov-confirm">
+  <div class="modal" style="max-width:400px;text-align:center">
+    <div style="font-size:44px;margin-bottom:10px">✅</div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:8px">הזמנות אושרו!</div>
+    <div id="confirm-txt" style="font-size:13.5px;color:var(--muted);margin-bottom:20px;line-height:1.7"></div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-gold" id="confirm-to-del">📄 תעודות משלוח</button>
+      <button class="btn btn-out" id="confirm-to-inv">🧾 חשבוניות</button>
+      <button class="btn btn-out" id="confirm-close">סגור</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<footer>הדמיה בלבד · <b>tehilauto.com</b> · האוטומציה שמאחורי ההצלחה</footer>
+
+<script>
+// ===== DATA =====
+const PRODS = [
+  {id:1,name:'רולדת שוקולד',price:38},
+  {id:2,name:'בליצה רבת חלב',price:36},
+  {id:3,name:'עוגת שמנת אפויה',price:39},
+  {id:4,name:'כדורי גבינה',price:20},
+  {id:5,name:'עוגת גבינה אפויה',price:45},
+  {id:6,name:'טארט פירות',price:42},
+];
+
+let clients = [
+  {id:1,store:'חנות ההנאה',inv:'א. כהן מסחר',city:'בני ברק',addr:'הרב עמרם 12',phone:'03-5551001',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:0,order:[{pid:1,qty:12},{pid:2,qty:8},{pid:3,qty:6}]},
+  {id:2,store:'מינימרקט שמש',inv:'מינימרקט שמש',city:'ירושלים',addr:'אגריפס 21',phone:'02-5552002',vat:false,pay:"צ'ק",terms:'שוטף',debt:840,order:[{pid:1,qty:6},{pid:4,qty:10}]},
+  {id:3,store:'מאפיית הלב',inv:'ד. גולדברג בע"מ',city:'בני ברק',addr:"ז'בוטינסקי 34",phone:'03-5553003',vat:true,pay:'Bit',terms:'שוטף+30',debt:2100,order:[{pid:2,qty:20},{pid:3,qty:14}]},
+  {id:4,store:'קפה הפינה',inv:'קפה הפינה',city:'תל אביב',addr:'דיזנגוף 80',phone:'03-5554004',vat:true,pay:'העברה בנקאית',terms:'שוטף',debt:0,skip:true,skipUntil:'05/08',order:[{pid:1,qty:8},{pid:2,qty:4}]},
+  {id:5,store:'סופר טוב',inv:'סל החסד אגודה',city:'בני ברק',addr:'כיכר השבת 5',phone:'03-5555005',vat:true,pay:"צ'ק",terms:'שוטף+60',debt:1290,order:[{pid:4,qty:24},{pid:3,qty:10}]},
+  {id:6,store:'קפה רינה',inv:'קפה רינה',city:'ירושלים',addr:'יפו 88',phone:'02-5556006',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:1,qty:10},{pid:2,qty:6}]},
+  {id:7,store:'מרכול הכרמל',inv:'מ. לוי מסחר',city:'תל אביב',addr:'הכרמל 14',phone:'03-5557007',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:650,order:[{pid:5,qty:8},{pid:1,qty:12}]},
+  {id:8,store:'מאפיית פסגה',inv:'מאפיית פסגה',city:'ירושלים',addr:"קינג ג'ורג 22",phone:'02-5558008',vat:true,pay:"צ'ק",terms:'שוטף+30',debt:0,order:[{pid:2,qty:16},{pid:6,qty:6}]},
+  {id:9,store:'מכולת שלמה',inv:'ש. ביטון',city:'רחובות',addr:'הרצל 5',phone:'08-5559009',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:4,qty:20},{pid:3,qty:8}]},
+  {id:10,store:'קנדי סויד',inv:'קנדי סויד בע"מ',city:'בני ברק',addr:'רבי עקיבא 40',phone:'03-5550010',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:0,order:[{pid:1,qty:15},{pid:5,qty:5}]},
+  {id:11,store:'בייגלה ברק',inv:'א. שפירא',city:'בני ברק',addr:'הגר 8',phone:'03-5551111',vat:true,pay:'העברה בנקאית',terms:'שוטף',debt:0,order:[{pid:2,qty:12},{pid:4,qty:8}]},
+  {id:12,store:'מאפיית אור',inv:'מאפיית אור',city:'רחובות',addr:'ויצמן 3',phone:'08-5552222',vat:false,pay:"צ'ק",terms:'שוטף+30',debt:0,order:[{pid:6,qty:10},{pid:3,qty:6}]},
+  {id:13,store:'קיוסק הדסה',inv:'ר. בן דוד',city:'ירושלים',addr:'הדסה 9',phone:'02-5553333',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:1,qty:8},{pid:3,qty:4}]},
+  {id:14,store:'שופרסל שכונתי',inv:'שופרסל שרשרת',city:'פתח תקווה',addr:'מנחם בגין 3',phone:'03-5554444',vat:true,pay:'העברה בנקאית',terms:'שוטף+60',debt:0,order:[{pid:2,qty:30},{pid:4,qty:20},{pid:1,qty:18}]},
+  {id:15,store:'מאפיית גורמה',inv:'מאפיית גורמה בע"מ',city:'תל אביב',addr:'רוטשילד 44',phone:'03-5555555',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:480,order:[{pid:5,qty:10},{pid:6,qty:8}]},
+];
+
+let weekOpen = false, weekDate = '';
+let weekOrders = {};
+let editOrderCid = null, editClientId = null;
+let delCity = 'all', delSearch = '', delSort = 'city';
+
+// ===== UTILS =====
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('on'), 2300);
+}
+function openOv(id) { document.getElementById(id).classList.add('on'); }
+function closeOv(id) { document.getElementById(id).classList.remove('on'); }
+function q(id) { return document.getElementById(id); }
+function pname(pid) { return PRODS.find(p => p.id == pid)?.name || ''; }
+function pprice(pid) { return PRODS.find(p => p.id == pid)?.price || 0; }
+function nextId() { return clients.length ? Math.max(...clients.map(c => c.id)) + 1 : 1; }
+
+function updateDashKpis() {
+  q('kpi-tot').textContent = clients.length;
+  q('kpi-debts').textContent = clients.filter(c => c.debt > 0).length;
+  q('kpi-red').textContent = clients.filter(c => c.debt >= 2000).length;
+  if (!weekOpen) { q('kpi-units').textContent = '—'; return; }
+  const u = clients.reduce((s, c) => {
+    const wo = weekOrders[c.id];
+    if (wo && wo.skip) return s;
+    return s + (wo ? wo.items : c.order).reduce((a, i) => a + i.qty, 0);
+  }, 0);
+  q('kpi-units').textContent = u;
+  // prod summary
+  const sums = {};
+  clients.forEach(c => {
+    const wo = weekOrders[c.id];
+    if (wo && wo.skip) return;
+    (wo ? wo.items : c.order).forEach(i => { sums[i.pid] = (sums[i.pid] || 0) + i.qty; });
+  });
+  q('dash-prod').innerHTML = Object.entries(sums).map(([pid, qty]) =>
+    `<span style="display:inline-block;background:#fff;border:1px solid #E9E3D6;border-radius:8px;padding:4px 12px;margin:3px;font-size:13px"><b>${qty}</b> <span style="color:var(--muted)">${pname(pid)}</span></span>`
+  ).join('');
+}
+
+// ===== NAVIGATION =====
+const TABS = {
+  'tab-dash': 'page-dash',
+  'tab-week': 'page-week',
+  'tab-del': 'page-del',
+  'tab-inv': 'page-inv',
+  'tab-pay': 'page-pay',
+  'tab-clients': 'page-clients',
+};
+Object.keys(TABS).forEach(tabId => {
+  q(tabId).addEventListener('click', () => {
+    document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+    q(tabId).classList.add('on');
+    q(TABS[tabId]).classList.add('on');
+    const page = TABS[tabId];
+    if (page === 'page-clients') renderClients();
+    if (page === 'page-del') renderDelivery();
+    if (page === 'page-inv') renderInvoices();
+    if (page === 'page-pay') renderPayments();
+  });
+});
+
+// close overlays on backdrop click
+document.querySelectorAll('.ov').forEach(ov => {
+  ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('on'); });
+});
+q('close-order').addEventListener('click', () => closeOv('ov-order'));
+q('cancel-order').addEventListener('click', () => closeOv('ov-order'));
+q('close-client').addEventListener('click', () => closeOv('ov-client'));
+q('cancel-client').addEventListener('click', () => closeOv('ov-client'));
+q('close-pay').addEventListener('click', () => closeOv('ov-pay'));
+q('confirm-close').addEventListener('click', () => closeOv('ov-confirm'));
+q('confirm-to-del').addEventListener('click', () => { closeOv('ov-confirm'); q('tab-del').click(); });
+q('confirm-to-inv').addEventListener('click', () => { closeOv('ov-confirm'); q('tab-inv').click(); });
+
+// ===== WEEK =====
+q('btn-open-week').addEventListener('click', openWeek);
+q('btn-confirm-orders').addEventListener('click', confirmOrders);
+
+function openWeek() {
+  const now = new Date();
+  weekDate = now.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  weekOpen = true;
+  q('week-lbl').textContent = 'שבוע ' + weekDate;
+  clients.forEach(c => {
+    if (!weekOrders[c.id])
+      weekOrders[c.id] = { items: c.order.map(o => ({ ...o, ct: 'קבועה' })), skip: c.skip || false, returns: 0 };
+  });
+  q('week-empty').style.display = 'none';
+  q('week-content').style.display = 'block';
+  renderWeek();
+  updateDashKpis();
+  toast('✅ שבוע חדש נפתח!');
+}
+
+function renderWeek() {
+  const tbody = q('week-body');
+  tbody.innerHTML = '';
+  clients.forEach(c => {
+    const wo = weekOrders[c.id] || { items: c.order.map(o => ({ ...o, ct: 'קבועה' })), skip: false, returns: 0 };
+    const totalU = wo.skip ? 0 : wo.items.reduce((s, i) => s + i.qty, 0);
+    const totalP = wo.skip ? 0 : wo.items.reduce((s, i) => s + i.qty * pprice(i.pid), 0);
+    const changed = !wo.skip && wo.items.some(i => i.ct && i.ct !== 'קבועה');
+    const statusHtml = wo.skip
+      ? `<span class="bx bx-gray">מדלג${wo.skipUntil ? ' עד ' + wo.skipUntil : ''}</span>`
+      : changed ? '<span class="bx bx-warn">שונה</span>' : '<span class="bx bx-ok">קבועה</span>';
+    const sumText = wo.skip ? '—' : wo.items.map(i => `${pname(i.pid)} ×${i.qty}`).join(' · ');
+    const tr = document.createElement('tr');
+    if (wo.skip) tr.classList.add('week-skip');
+    tr.innerHTML = `
+      <td><b>${c.store}</b></td>
+      <td>${c.city}</td>
+      <td style="max-width:240px;font-size:12px;color:var(--muted)">${sumText}</td>
+      <td><button class="btn btn-out btn-sm ord-btn" style="font-family:'IBM Plex Mono',monospace;font-weight:700" data-cid="${c.id}">${wo.skip ? '—' : totalU + ' יח׳ · ₪' + totalP}</button></td>
+      <td>${statusHtml}</td>
+      <td><button class="btn btn-out btn-sm skip-btn" data-cid="${c.id}">${wo.skip ? 'בטל דילוג' : 'דלג השבוע'}</button></td>`;
+    tbody.appendChild(tr);
+  });
+
+  // bind order buttons
+  tbody.querySelectorAll('.ord-btn').forEach(btn => {
+    btn.addEventListener('click', () => openOrderModal(+btn.dataset.cid));
+  });
+  tbody.querySelectorAll('.skip-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cid = +btn.dataset.cid;
+      if (!weekOrders[cid]) weekOrders[cid] = { items: clients.find(c => c.id === cid).order.map(o => ({ ...o, ct: 'קבועה' })), skip: false, returns: 0 };
+      weekOrders[cid].skip = !weekOrders[cid].skip;
+      renderWeek(); updateDashKpis();
+    });
+  });
+
+  // kpis
+  const active = clients.filter(c => !(weekOrders[c.id] && weekOrders[c.id].skip));
+  const totalU = active.reduce((s, c) => { const wo = weekOrders[c.id]; return s + (wo ? wo.items : c.order).reduce((a, i) => a + i.qty, 0); }, 0);
+  q('week-kpis').innerHTML = `
+    <div class="kpi"><div class="num">${clients.length}</div><div class="lbl">סה"כ לקוחות</div></div>
+    <div class="kpi"><div class="num ok">${active.length}</div><div class="lbl">פעילים</div></div>
+    <div class="kpi"><div class="num warn">${clients.filter(c => weekOrders[c.id] && weekOrders[c.id].skip).length}</div><div class="lbl">מדלגים</div></div>
+    <div class="kpi"><div class="num">${totalU}</div><div class="lbl">יחידות</div></div>`;
+}
+
+function confirmOrders() {
+  if (!weekOpen) { toast('⚠️ פתחי שבוע חדש קודם'); return; }
+  const active = clients.filter(c => !(weekOrders[c.id] && weekOrders[c.id].skip));
+  const total = active.reduce((s, c) => { const wo = weekOrders[c.id]; return s + (wo ? wo.items : c.order).reduce((a, i) => a + i.qty, 0); }, 0);
+  q('confirm-txt').innerHTML = `נוצרו <b>${active.length} תעודות משלוח</b> ו-<b>${active.length} חשבוניות</b><br>סה"כ <b>${total} יחידות</b> לשבוע ${weekDate}`;
+  openOv('ov-confirm');
+  renderDelivery(); renderInvoices();
+}
+
+// ===== ORDER MODAL =====
+function openOrderModal(cid) {
+  editOrderCid = cid;
+  const c = clients.find(c => c.id === cid);
+  const wo = weekOrders[cid] || { items: c.order.map(o => ({ ...o, ct: 'קבועה' })), skip: false, returns: 0 };
+  q('order-title').textContent = `הזמנת ${c.store} — ${weekDate}`;
+  const body = q('order-body');
+  body.innerHTML = '';
+  const itemMap = {};
+  wo.items.forEach(i => { itemMap[i.pid] = { qty: i.qty, ct: i.ct || 'קבועה' }; });
+  PRODS.forEach(p => {
+    const item = itemMap[p.id] || { qty: 0, ct: 'קבועה' };
+    const div = document.createElement('div');
+    div.className = 'oi';
+    div.innerHTML = `
+      <div class="name">${p.name} <span class="price">₪${p.price}</span></div>
+      <div class="qc">
+        <button class="qbtn" data-pid="${p.id}" data-d="-1">−</button>
+        <div class="qnum" id="oq-${p.id}">${item.qty}</div>
+        <button class="qbtn" data-pid="${p.id}" data-d="1">+</button>
+      </div>
+      <select class="ct-sel" id="oct-${p.id}">
+        <option value="קבועה"${item.ct==='קבועה'?' selected':''}>קבועה</option>
+        <option value="לשבוע בלבד"${item.ct==='לשבוע בלבד'?' selected':''}>לשבוע בלבד</option>
+        <option value="תוספת לשבוע"${item.ct==='תוספת לשבוע'?' selected':''}>תוספת לשבוע</option>
+        <option value="תוספת קבועה"${item.ct==='תוספת קבועה'?' selected':''}>תוספת קבועה</option>
+        <option value="הורדה קבועה"${item.ct==='הורדה קבועה'?' selected':''}>הורדה קבועה</option>
+      </select>`;
+    body.appendChild(div);
+  });
+  // returns row
+  const ret = document.createElement('div');
+  ret.style.cssText = 'display:flex;align-items:center;gap:10px;background:#FBF9F4;border:1px solid #E9E3D6;border-radius:9px;padding:8px 12px;margin-top:10px';
+  ret.innerHTML = `<div style="flex:1;font-size:13px;font-weight:600">↩ חזרות השבוע</div>
+    <div class="qc">
+      <button class="qbtn" data-ret="-1">−</button>
+      <div class="qnum" id="oret">${wo.returns || 0}</div>
+      <button class="qbtn" data-ret="1">+</button>
+    </div>`;
+  body.appendChild(ret);
+
+  // bind qty buttons
+  body.querySelectorAll('.qbtn[data-pid]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = q('oq-' + btn.dataset.pid);
+      let v = +el.textContent + +btn.dataset.d;
+      if (v < 0) v = 0;
+      el.textContent = v;
+    });
+  });
+  body.querySelectorAll('.qbtn[data-ret]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = q('oret');
+      let v = +el.textContent + +btn.dataset.ret;
+      if (v < 0) v = 0;
+      el.textContent = v;
+    });
+  });
+  openOv('ov-order');
+}
+
+q('btn-save-order').addEventListener('click', () => {
+  const c = clients.find(c => c.id === editOrderCid);
+  const items = [];
+  PRODS.forEach(p => {
+    const qty = +q('oq-' + p.id)?.textContent || 0;
+    const ct = q('oct-' + p.id)?.value || 'קבועה';
+    if (qty > 0) items.push({ pid: p.id, qty, ct });
+    if (ct === 'הורדה קבועה' || ct === 'תוספת קבועה') {
+      const ex = c.order.find(o => o.pid === p.id);
+      if (ex) ex.qty = qty;
+      else if (qty > 0) c.order.push({ pid: p.id, qty });
+      if (qty === 0) c.order = c.order.filter(o => o.pid !== p.id);
+    }
+  });
+  const returns = +q('oret').textContent || 0;
+  weekOrders[editOrderCid] = { items, skip: weekOrders[editOrderCid]?.skip || false, returns };
+  closeOv('ov-order');
+  renderWeek(); updateDashKpis();
+  toast('✅ הזמנה נשמרה');
+});
+
+// ===== DELIVERY =====
+document.querySelectorAll('.fbtn[data-city]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn[data-city]').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    delCity = btn.dataset.city;
+    renderDelivery();
+  });
+});
+q('del-search').addEventListener('input', e => { delSearch = e.target.value; renderDelivery(); });
+q('btn-sort-alpha').addEventListener('click', () => { delSort = 'alpha'; renderDelivery(); });
+q('btn-sort-city').addEventListener('click', () => { delSort = 'city'; renderDelivery(); });
+q('btn-print').addEventListener('click', () => toast('🖨️ שולח ל-PDF...'));
+
+function renderDelivery() {
+  let list = clients.filter(c => !(weekOrders[c.id] && weekOrders[c.id].skip));
+  if (delCity !== 'all') list = list.filter(c => c.city === delCity);
+  if (delSearch) list = list.filter(c => c.store.includes(delSearch) || c.city.includes(delSearch));
+  if (delSort === 'alpha') list = [...list].sort((a, b) => a.store.localeCompare(b.store, 'he'));
+  else list = [...list].sort((a, b) => a.city.localeCompare(b.city, 'he'));
+
+  let invNum = 1040, html = '';
+  if (delSort === 'alpha') {
+    html += `<div class="tbl-wrap"><table><thead><tr><th>מס'</th><th>שם חנות</th><th>עיר</th><th>כתובת</th><th>הזמנה</th><th>יח'</th></tr></thead><tbody>`;
+    list.forEach(c => {
+      const items = weekOrders[c.id] ? weekOrders[c.id].items : c.order;
+      const tot = items.reduce((s, i) => s + i.qty, 0);
+      const sum = items.map(i => `${pname(i.pid)} ×${i.qty}`).join(' · ');
+      html += `<tr><td style="font-family:monospace">#${invNum++}</td><td><b>${c.store}</b></td><td>${c.city}</td><td>${c.addr}</td><td style="font-size:12px;color:var(--muted)">${sum}</td><td><b>${tot}</b></td></tr>`;
+    });
+    html += `</tbody></table></div>`;
+  } else {
+    const cities = [...new Set(list.map(c => c.city))].sort((a, b) => a.localeCompare(b, 'he'));
+    cities.forEach(city => {
+      const cc = list.filter(c => c.city === city);
+      html += `<div class="city-hdr">📍 ${city} — ${cc.length} תעודות</div><div class="tbl-wrap"><table><thead><tr><th>מס'</th><th>שם חנות</th><th>כתובת</th><th>הזמנה</th><th>יח'</th></tr></thead><tbody>`;
+      cc.forEach(c => {
+        const items = weekOrders[c.id] ? weekOrders[c.id].items : c.order;
+        const tot = items.reduce((s, i) => s + i.qty, 0);
+        const sum = items.map(i => `${pname(i.pid)} ×${i.qty}`).join(' · ');
+        html += `<tr><td style="font-family:monospace">#${invNum++}</td><td><b>${c.store}</b></td><td>${c.addr}</td><td style="font-size:12px;color:var(--muted)">${sum}</td><td><b>${tot}</b></td></tr>`;
+      });
+      html += `</tbody></table></div><div style="height:8px"></div>`;
+    });
+  }
+  if (!list.length) html = `<div class="card empty-state"><div class="icon">📭</div><p>אין תעודות להצגה</p></div>`;
+  q('del-list').innerHTML = html;
+}
+
+// ===== INVOICES =====
+q('btn-gen-inv').addEventListener('click', () => { toast('🧾 מפיק חשבוניות...'); setTimeout(() => { renderInvoices(); toast('✅ הופקו ' + clients.length + ' חשבוניות!'); }, 700); });
+q('btn-export-xls').addEventListener('click', () => toast('📊 מייצא לאקסל...'));
+
+function renderInvoices() {
+  const tbody = q('inv-body');
+  tbody.innerHTML = '';
+  clients.forEach(c => {
+    const wo = weekOrders[c.id];
+    const items = wo ? wo.items : c.order;
+    const totalU = items.reduce((s, i) => s + i.qty, 0);
+    const returns = wo ? wo.returns || 0 : 0;
+    const net = Math.max(0, totalU - returns);
+    const totalP = items.reduce((s, i) => s + i.qty * pprice(i.pid), 0);
+    const netP = totalU > 0 ? Math.round(totalP * net / totalU) : 0;
+    const vat = c.vat ? Math.round(netP * 0.18) : 0;
+    const final = netP + vat;
+    const skip = wo && wo.skip;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><b>${c.inv}</b></td><td>${c.store}</td>
+      <td style="font-family:monospace">${skip ? '—' : totalU}</td>
+      <td style="font-family:monospace;color:var(--red)">${skip || !returns ? '—' : '−' + returns}</td>
+      <td style="font-family:monospace"><b>${skip ? '—' : net + ' יח\''}</b></td>
+      <td>${c.vat ? '<span class="bx bx-ok">עם מע"מ</span>' : '<span class="bx bx-gray">ללא</span>'}</td>
+      <td style="font-family:monospace"><b>${skip ? '—' : '₪' + final.toLocaleString()}</b></td>
+      <td>${skip ? '<span class="bx bx-gray">דילג</span>' : '<span class="bx bx-warn">ממתין</span>'}</td>
+      <td><button class="btn btn-out btn-sm inv-print-btn">הפק</button></td>`;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('.inv-print-btn').forEach(btn => {
+    btn.addEventListener('click', () => toast('🧾 מפיק חשבונית...'));
+  });
+}
+
+// ===== PAYMENTS =====
+q('btn-add-pay').addEventListener('click', () => openPayModal(null));
+
+function renderPayments() {
+  const tbody = q('pay-body');
+  tbody.innerHTML = '';
+  clients.forEach(c => {
+    const d = c.debt || 0;
+    const cls = d === 0 ? 'bx-ok' : d >= 2000 ? 'bx-red' : 'bx-warn';
+    const icon = d === 0 ? '🟢' : d >= 2000 ? '🔴' : '🟡';
+    const label = d === 0 ? 'מסודר' : d >= 2000 ? 'חוב אדום' : 'בהמתנה';
+    const col = d === 0 ? 'var(--ok)' : d >= 2000 ? 'var(--red)' : 'var(--warn)';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><b>${c.store}</b></td>
+      <td style="font-family:monospace;font-weight:700;color:${col}">${d === 0 ? '—' : '₪' + d.toLocaleString()}</td>
+      <td>${c.pay}</td><td>${c.terms}</td>
+      <td><span class="bx ${cls}">${icon} ${label}</span></td>
+      <td><button class="btn btn-out btn-sm pay-reg-btn" data-cid="${c.id}">רשום תשלום</button></td>`;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('.pay-reg-btn').forEach(btn => {
+    btn.addEventListener('click', () => openPayModal(+btn.dataset.cid));
+  });
+}
+
+function openPayModal(cid) {
+  const sel = q('pay-client');
+  sel.innerHTML = clients.map(c => `<option value="${c.id}"${c.id === cid ? ' selected' : ''}>${c.store}</option>`).join('');
+  q('pay-date').value = new Date().toISOString().split('T')[0];
+  q('pay-amount').value = '';
+  q('pay-note').value = '';
+  openOv('ov-pay');
+}
+
+q('btn-save-pay').addEventListener('click', () => {
+  const cid = +q('pay-client').value;
+  const amount = +q('pay-amount').value || 0;
+  const c = clients.find(c => c.id === cid);
+  if (c && amount > 0) c.debt = Math.max(0, (c.debt || 0) - amount);
+  closeOv('ov-pay'); renderPayments(); updateDashKpis();
+  toast('✅ תשלום נרשם בהצלחה');
+});
+
+// ===== CLIENTS =====
+q('btn-new-client').addEventListener('click', () => openClientModal(null));
+q('client-search').addEventListener('input', e => { renderClients(e.target.value); });
+
+function renderClients(search) {
+  let list = clients;
+  if (search) list = list.filter(c => c.store.includes(search) || c.inv.includes(search) || c.city.includes(search));
+  const tbody = q('clients-body');
+  tbody.innerHTML = '';
+  list.forEach(c => {
+    const sum = c.order.map(i => `${pname(i.pid)}×${i.qty}`).join(', ') || '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><b>${c.store}</b></td><td>${c.inv}</td><td>${c.city}</td>
+      <td>${c.vat ? '<span class="bx bx-ok">כן</span>' : '<span class="bx bx-gray">לא</span>'}</td>
+      <td>${c.pay}</td>
+      <td style="font-size:11.5px;color:var(--muted);max-width:200px">${sum}</td>
+      <td><button class="btn btn-out btn-sm edit-client-btn" data-cid="${c.id}">✏️ עריכה</button></td>`;
+    tbody.appendChild(tr);
+  });
+  tbody.querySelectorAll('.edit-client-btn').forEach(btn => {
+    btn.addEventListener('click', () => openClientModal(+btn.dataset.cid));
+  });
+}
+
+function openClientModal(cid) {
+  editClientId = cid;
+  const c = cid ? clients.find(c => c.id === cid) : null;
+  q('client-modal-title').textContent = c ? `עריכת ${c.store}` : 'לקוח חדש';
+  q('nc-store').value = c ? c.store : '';
+  q('nc-inv').value = c ? c.inv : '';
+  q('nc-city').value = c ? c.city : 'בני ברק';
+  q('nc-addr').value = c ? c.addr : '';
+  q('nc-phone').value = c ? c.phone : '';
+  q('nc-vat').value = c ? (c.vat ? 'yes' : 'no') : 'yes';
+  q('nc-pay').value = c ? c.pay : 'העברה בנקאית';
+  q('nc-terms').value = c ? c.terms : 'שוטף';
+  const pl = q('nc-prods');
+  pl.innerHTML = '';
+  PRODS.forEach(p => {
+    const ex = c ? c.order.find(o => o.pid === p.id) : null;
+    const div = document.createElement('div');
+    div.className = 'oi';
+    div.innerHTML = `
+      <div class="name">${p.name} <span class="price">₪${p.price}</span></div>
+      <div class="qc">
+        <button class="qbtn" data-npid="${p.id}" data-d="-1">−</button>
+        <div class="qnum" id="nq-${p.id}">${ex ? ex.qty : 0}</div>
+        <button class="qbtn" data-npid="${p.id}" data-d="1">+</button>
+      </div>`;
+    pl.appendChild(div);
+  });
+  pl.querySelectorAll('.qbtn[data-npid]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = q('nq-' + btn.dataset.npid);
+      let v = +el.textContent + +btn.dataset.d;
+      if (v < 0) v = 0;
+      el.textContent = v;
+    });
+  });
+  openOv('ov-client');
+}
+
+q('btn-save-client').addEventListener('click', () => {
+  const store = q('nc-store').value.trim();
+  if (!store) { toast('⚠️ חסר שם חנות'); return; }
+  const order = [];
+  PRODS.forEach(p => {
+    const qty = +q('nq-' + p.id)?.textContent || 0;
+    if (qty > 0) order.push({ pid: p.id, qty, ct: 'קבועה' });
+  });
+  const data = {
+    store, inv: q('nc-inv').value || store,
+    city: q('nc-city').value, addr: q('nc-addr').value,
+    phone: q('nc-phone').value,
+    vat: q('nc-vat').value === 'yes',
+    pay: q('nc-pay').value,
+    terms: q('nc-terms').value,
+    order
+  };
+  if (editClientId) {
+    const idx = clients.findIndex(c => c.id === editClientId);
+    if (idx >= 0) clients[idx] = { ...clients[idx], ...data };
+  } else {
+    clients.push({ id: nextId(), debt: 0, ...data });
+  }
+  closeOv('ov-client'); renderClients(); updateDashKpis();
+  toast(editClientId ? '✅ לקוח עודכן' : '✅ לקוח נוסף בהצלחה');
+});
+
+// ===== INIT =====
+updateDashKpis();
+renderClients();
+</script>
+</body>
+</html>

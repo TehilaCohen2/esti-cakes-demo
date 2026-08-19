@@ -1,136 +1,158 @@
+
 <!DOCTYPE html>
 <html dir="rtl" lang="he">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>אסתי קונדיטוריה</title>
+<title>אסתי קונדיטוריה CRM</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--ink:#161616;--gold:#C9963A;--goldd:#A87A28;--bg:#F0EDE4;--card:#fff;--border:#E3DBC9;--ok:#2E9E6B;--warn:#D97706;--red:#DC2626;--muted:#6E6455;--text:#2A2620}
 body{font-family:'IBM Plex Sans Hebrew',sans-serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
-/* NAV */
-nav{background:var(--ink);display:flex;align-items:center;padding:0 18px;height:50px;gap:4px;position:sticky;top:0;z-index:50;flex-shrink:0}
-nav .logo{color:var(--gold);font-weight:700;font-size:16px;margin-left:18px;white-space:nowrap}
-.ntab{background:none;border:none;color:#aaa;font:600 13px 'IBM Plex Sans Hebrew',sans-serif;padding:6px 12px;border-radius:8px;cursor:pointer}
-.ntab:hover{background:rgba(201,150,58,.2);color:var(--gold)}
-.ntab.on{background:rgba(201,150,58,.25);color:var(--gold)}
-.demo-tag{margin-right:auto;background:rgba(201,150,58,.2);color:var(--gold);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;border:1px solid rgba(201,150,58,.35);letter-spacing:.1em}
-/* PAGES */
-.page{display:none;flex:1;overflow-y:auto;padding:20px}
+nav{background:var(--ink);display:flex;align-items:center;padding:0 8px;height:46px;gap:1px;position:sticky;top:0;z-index:50;flex-shrink:0;overflow-x:auto}
+.logo{color:var(--gold);font-weight:700;font-size:13px;margin-left:10px;white-space:nowrap;flex-shrink:0}
+.ntab{background:none;border:none;color:#999;font:600 11px 'IBM Plex Sans Hebrew',sans-serif;padding:4px 8px;border-radius:6px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.ntab:hover,.ntab.on{background:rgba(201,150,58,.25);color:var(--gold)}
+.demo-tag{margin-right:auto;background:rgba(201,150,58,.2);color:var(--gold);font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+.page{display:none;flex:1;overflow-y:auto;padding:12px}
 .page.on{display:block}
-/* CARDS */
-.card{background:var(--card);border:1px solid #E9E3D6;border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-.sec{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.sec::before{content:"";width:4px;height:16px;background:var(--gold);border-radius:2px}
-/* BUTTONS */
+.card{background:var(--card);border:1px solid #E9E3D6;border-radius:10px;padding:13px 15px;margin-bottom:10px;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.sec{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.sec::before{content:"";width:3px;height:14px;background:var(--gold);border-radius:2px;flex-shrink:0}
 button{font-family:'IBM Plex Sans Hebrew',sans-serif;cursor:pointer}
-.btn{display:inline-flex;align-items:center;gap:5px;border:none;border-radius:100px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:.12s}
+.btn{display:inline-flex;align-items:center;gap:4px;border:none;border-radius:100px;padding:5px 13px;font-size:12px;font-weight:700;cursor:pointer;transition:.12s}
 .btn-gold{background:var(--gold);color:#fff}.btn-gold:hover{background:var(--goldd)}
 .btn-out{background:transparent;border:1.5px solid var(--border);color:var(--ink)}.btn-out:hover{border-color:var(--gold);color:var(--gold)}
-.btn-ok{background:var(--ok);color:#fff}.btn-ok:hover{opacity:.88}
-.btn-sm{padding:5px 11px;font-size:12px}
-/* TABLE */
-.tbl-wrap{border-radius:10px;overflow:hidden;border:1px solid #E9E3D6;margin-bottom:14px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:var(--ink);color:#F2EDE3;padding:9px 12px;text-align:right;font-size:12px;font-weight:600}
-td{padding:9px 12px;border-bottom:1px solid #F5F0E8;vertical-align:middle}
+.btn-ok{background:var(--ok);color:#fff}.btn-sm{padding:3px 8px;font-size:11px}
+.tbl-wrap{border-radius:8px;overflow:hidden;border:1px solid #E9E3D6;margin-bottom:10px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{background:var(--ink);color:#F2EDE3;padding:6px 9px;text-align:right;font-size:10.5px;font-weight:600;white-space:nowrap}
+td{padding:6px 9px;border-bottom:1px solid #F5F0E8;vertical-align:middle}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#FAFAF6}
-/* BADGE */
-.bx{display:inline-block;padding:2px 9px;border-radius:100px;font-size:11px;font-weight:700}
+.bx{display:inline-block;padding:2px 6px;border-radius:100px;font-size:10px;font-weight:700;white-space:nowrap}
 .bx-ok{background:#DCFCE7;color:#166534}.bx-warn{background:#FEF3C7;color:#92400E}
 .bx-red{background:#FEE2E2;color:#991B1B}.bx-gray{background:#F3F4F6;color:#374151}
-.bx-blue{background:#DBEAFE;color:#1E40AF}
-/* KPI */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:16px}
-.kpi{background:var(--card);border:1px solid #E9E3D6;border-radius:10px;padding:12px 14px}
-.kpi .num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700}
-.kpi .lbl{font-size:11.5px;color:var(--muted);margin-top:2px}
+.bx-blue{background:#DBEAFE;color:#1E40AF}.bx-pur{background:#EDE9FE;color:#5B21B6}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:7px;margin-bottom:11px}
+.kpi{background:var(--card);border:1px solid #E9E3D6;border-radius:9px;padding:9px 11px}
+.kpi .num{font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:700}
+.kpi .lbl{font-size:10px;color:var(--muted);margin-top:2px}
 .num.ok{color:var(--ok)}.num.warn{color:var(--warn)}.num.red{color:var(--red)}
-/* ACTIONS BAR */
-.acts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
-/* MODAL */
-.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.acts{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:none;align-items:center;justify-content:center;padding:12px}
 .ov.on{display:flex}
-.modal{background:var(--card);border-radius:14px;padding:22px;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.mhead h3{font-size:17px;font-weight:700}
-.mclose{background:none;border:none;font-size:22px;color:var(--muted);cursor:pointer;line-height:1;padding:0 4px}
-.mclose:hover{color:var(--ink)}
-/* FORM */
-.field{margin-bottom:11px}
-.field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:4px}
-.field input,.field select{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit;color:var(--text);background:#fff}
-.field input:focus,.field select:focus{outline:none;border-color:var(--gold)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-/* ORDER ITEM */
-.oi{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #E9E3D6;border-radius:9px;margin-bottom:7px;background:#fff}
-.oi .name{flex:1;font-size:13px;font-weight:600}
-.oi .price{font-size:11.5px;color:var(--muted);margin-right:4px}
-.qc{display:flex;align-items:center;gap:6px}
-.qbtn{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.1s;line-height:1;color:var(--ink)}
+.modal{background:var(--card);border-radius:12px;padding:16px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.mhead h3{font-size:14px;font-weight:700}
+.mclose{background:none;border:none;font-size:20px;color:var(--muted);cursor:pointer}
+.field{margin-bottom:8px}
+.field label{display:block;font-size:11px;font-weight:600;margin-bottom:2px;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--border);border-radius:7px;padding:5px 8px;font-size:12px;font-family:inherit;color:var(--text);background:#fff}
+.field textarea{resize:vertical;min-height:60px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.oi{display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid #E9E3D6;border-radius:7px;margin-bottom:4px;background:#fff}
+.oi .nm{flex:1;font-size:12px;font-weight:600}
+.oi .pr{font-size:10.5px;color:var(--muted)}
+.qc{display:flex;align-items:center;gap:4px}
+.qbtn{width:21px;height:21px;border-radius:50%;border:1.5px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink)}
 .qbtn:hover{border-color:var(--gold);color:var(--gold)}
-.qnum{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:700;min-width:26px;text-align:center}
-.ct-sel{border:1.5px solid var(--border);border-radius:7px;padding:3px 7px;font-size:11.5px;font-family:inherit;background:#fff;color:var(--text);cursor:pointer}
-/* DELIVERY */
-.city-hdr{background:var(--ink);color:var(--gold);padding:6px 14px;font-size:13px;font-weight:700;border-radius:8px;margin:12px 0 7px}
-/* FILTER */
-.fbtn{border:1.5px solid var(--border);background:var(--card);border-radius:100px;padding:5px 14px;font-size:12.5px;font-weight:600;color:var(--muted);cursor:pointer;transition:.12s;font-family:inherit}
-.fbtn:hover{border-color:var(--gold);color:var(--gold)}
-.fbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-input[type=search]{border:1.5px solid var(--border);border-radius:8px;padding:6px 11px;font-size:13px;font-family:inherit;background:#fff;color:var(--text)}
-input[type=search]:focus{outline:none;border-color:var(--gold)}
-/* TOAST */
-.toast{position:fixed;bottom:50px;left:50%;transform:translateX(-50%);background:var(--ink);color:#F2EDE3;padding:10px 22px;border-radius:100px;font-size:13.5px;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
+.qnum{font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;min-width:20px;text-align:center}
+.ct-sel{border:1.5px solid var(--border);border-radius:5px;padding:2px 4px;font-size:10.5px;font-family:inherit;background:#fff}
+.city-hdr{background:var(--ink);color:var(--gold);padding:4px 11px;font-size:12px;font-weight:700;border-radius:7px;margin:8px 0 4px}
+.fbtn{border:1.5px solid var(--border);background:var(--card);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;font-family:inherit}
+.fbtn:hover{border-color:var(--gold);color:var(--gold)}.fbtn.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+input[type=search]{border:1.5px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;font-family:inherit;background:#fff;color:var(--text)}
+.toast{position:fixed;bottom:44px;left:50%;transform:translateX(-50%);background:var(--ink);color:#F2EDE3;padding:7px 16px;border-radius:100px;font-size:12px;font-weight:600;z-index:999;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 .toast.on{opacity:1}
-/* FOOTER */
-footer{background:#111;color:rgba(255,255,255,.35);text-align:center;font-size:11px;padding:7px;flex-shrink:0;position:sticky;bottom:0;z-index:50}
-footer b{color:var(--gold)}
-.week-skip{opacity:.4}
-.empty-state{text-align:center;padding:40px 20px;color:var(--muted)}
-.empty-state .icon{font-size:38px;margin-bottom:10px}
-.empty-state h3{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
-.empty-state p{font-size:13px}
+.skip-row{opacity:.4}
+.empty-st{text-align:center;padding:28px 16px;color:var(--muted)}
+.empty-st .ico{font-size:32px;margin-bottom:6px}
+.stab{border:1.5px solid var(--border);background:var(--card);border-radius:100px;padding:3px 11px;font-size:11.5px;font-weight:600;color:var(--muted);cursor:pointer;font-family:inherit}
+.stab:hover{border-color:var(--gold);color:var(--gold)}.stab.on{background:var(--ink);color:var(--gold);border-color:var(--ink)}
+.tab-sub{display:flex;gap:4px;margin-bottom:11px;flex-wrap:wrap}
+.arow{display:flex;align-items:flex-start;gap:8px;padding:7px 11px;border-radius:8px;margin-bottom:5px;background:#fff;border:1px solid #E9E3D6}
+.arow.red{border-color:#FECACA;background:#FFF5F5}.arow.warn{border-color:#FDE68A;background:#FFFBEB}.arow.ok{border-color:#BBF7D0;background:#F0FFF4}
+.aicon{font-size:15px;flex-shrink:0;margin-top:1px}.atext{flex:1;font-size:12px;line-height:1.5}
+.scan-zone{border:2px dashed var(--border);border-radius:10px;padding:22px;text-align:center;color:var(--muted);cursor:pointer;transition:.2s}
+.scan-zone:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,150,58,.04)}
+.scan-zone .ico{font-size:26px;margin-bottom:5px}
+.prog-bar{height:5px;border-radius:3px;background:#E9E3D6;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;background:var(--gold)}
+.pl-fix{background:#DBEAFE;color:#1E40AF;display:inline-block;padding:1px 6px;border-radius:100px;font-size:10px;font-weight:700}
+.pl-occ{background:#EDE9FE;color:#5B21B6;display:inline-block;padding:1px 6px;border-radius:100px;font-size:10px;font-weight:700}
+.bar-chart{display:flex;align-items:flex-end;gap:5px;height:80px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.bar-col .bv{font-size:9px;color:var(--muted);font-family:monospace}
+.bar-col .bl{font-size:9.5px;color:var(--muted)}
+.bar-col .bar{width:100%;border-radius:2px 2px 0 0}
+.hbar{margin-bottom:5px}
+.hbar .hl{display:flex;justify-content:space-between;font-size:10.5px;margin-bottom:2px}
+.hbar .ht{height:8px;background:#E9E3D6;border-radius:3px;overflow:hidden}
+.hbar .hf{height:100%;border-radius:3px}
+footer.brand-footer{background:var(--ink);padding:9px;text-align:center;flex-shrink:0}
+.bf-line{height:1px;background:rgba(201,150,58,.3);margin-bottom:6px}
+.bf-text{color:rgba(255,255,255,.45);font-size:11px}
+.bf-text b{color:var(--gold)}
+.bf-site{font-family:'IBM Plex Mono',monospace;color:rgba(201,150,58,.6);font-size:10px;margin-top:2px}
 </style>
 </head>
 <body>
-
 <nav>
-  <div class="logo">🎂 אסתי קונדיטוריה</div>
-  <button class="ntab on" id="tab-dash">דשבורד</button>
-  <button class="ntab" id="tab-week">הזמנות שבועיות</button>
-  <button class="ntab" id="tab-del">תעודות משלוח</button>
-  <button class="ntab" id="tab-inv">חשבוניות</button>
-  <button class="ntab" id="tab-pay">תשלומים</button>
-  <button class="ntab" id="tab-clients">לקוחות</button>
+  <div class="logo">🎂 אסתי</div>
+  <button class="ntab on" data-tab="dash">דשבורד</button>
+  <button class="ntab" data-tab="week">הזמנות</button>
+  <button class="ntab" data-tab="del">תעודות</button>
+  <button class="ntab" data-tab="inv">חשבוניות</button>
+  <button class="ntab" data-tab="pay">גבייה</button>
+  <button class="ntab" data-tab="clients">לקוחות</button>
+  <button class="ntab" data-tab="suppliers">ספקים</button>
+  <button class="ntab" data-tab="scan">סריקה</button>
+  <button class="ntab" data-tab="expenses">הוצאות</button>
+  <button class="ntab" data-tab="payslips">משכורות</button>
+  <button class="ntab" data-tab="recipes">מתכונים</button>
+  <button class="ntab" data-tab="reports">דוחות</button>
+  <button class="ntab" data-tab="leads">לידים</button>
+  <button class="ntab" data-tab="driver">משלוחן</button>
   <div class="demo-tag">DEMO</div>
 </nav>
 
 <!-- DASHBOARD -->
 <div class="page on" id="page-dash">
   <div class="kpis">
-    <div class="kpi"><div class="num" id="kpi-tot">15</div><div class="lbl">לקוחות רשומים</div></div>
+    <div class="kpi"><div class="num" id="kpi-clients">47</div><div class="lbl">לקוחות פעילים</div></div>
     <div class="kpi"><div class="num" id="kpi-units">—</div><div class="lbl">יחידות לייצור</div></div>
-    <div class="kpi"><div class="num ok">₪18,420</div><div class="lbl">צפי גבייה</div></div>
-    <div class="kpi"><div class="num warn" id="kpi-debts">0</div><div class="lbl">חובות פתוחים</div></div>
-    <div class="kpi"><div class="num red" id="kpi-red">0</div><div class="lbl">חוב אדום</div></div>
+    <div class="kpi"><div class="num ok">₪23,840</div><div class="lbl">צפי גבייה</div></div>
+    <div class="kpi"><div class="num warn" id="kpi-debts">8</div><div class="lbl">חובות פתוחים</div></div>
+    <div class="kpi"><div class="num red" id="kpi-red">2</div><div class="lbl">חוב אדום</div></div>
+    <div class="kpi"><div class="num warn">4</div><div class="lbl">חשב' ספק חסרות</div></div>
   </div>
   <div class="card">
     <div class="sec">🔔 התראות</div>
-    <div class="tbl-wrap">
-      <table><thead><tr><th>סוג</th><th>לקוח</th><th>פרטים</th></tr></thead>
-      <tbody>
-        <tr><td><span class="bx bx-red">חוב אדום</span></td><td>מאפיית הלב, בני ברק</td><td>₪2,100 — 62 יום</td></tr>
-        <tr><td><span class="bx bx-warn">צ'ק בפירעון</span></td><td>מינימרקט שמש, ירושלים</td><td>צ'ק #4421 — מחר</td></tr>
-        <tr><td><span class="bx bx-blue">חזר מדילוג</span></td><td>קפה רינה, ירושלים</td><td>חוזר השבוע</td></tr>
-        <tr><td><span class="bx bx-gray">עלות</span></td><td>מוצרי חלב</td><td>מחיר חלב עלה — בדקי עלויות</td></tr>
-      </tbody></table>
-    </div>
+    <div class="arow red"><div class="aicon">🔴</div><div class="atext"><b>מאפיית הלב</b> — חוב ₪3,200 · 68 יום <button class="btn btn-out btn-sm" onclick="toast('📧 תזכורת נשלחה!')" style="margin-right:6px">📧 תזכורת</button></div></div>
+    <div class="arow warn"><div class="aicon">💳</div><div class="atext"><b>מינימרקט שמש</b> — צ'ק #4421 · ₪840 · פירעון מחר</div></div>
+    <div class="arow warn"><div class="aicon">📦</div><div class="atext"><b>שוקולד פרמיום</b> עלה 12% — עלות רולדה ↑₪4.20. מחיר מוצע ₪42</div></div>
+    <div class="arow warn"><div class="aicon">🧾</div><div class="atext"><b>טרה + ביסלי</b> לא שלחו חשבונית יולי <button class="btn btn-out btn-sm" onclick="toast('📧 תזכורות נשלחו!')" style="margin-right:6px">📧 שלח תזכורות</button></div></div>
+    <div class="arow warn"><div class="aicon">↩️</div><div class="atext"><b>קפה הפינה</b> — 9/12 כדורי גבינה חזרו 3 שבועות ברצף. שקלי להקטין.</div></div>
   </div>
-  <div class="card">
-    <div class="sec">📦 רשימת ייצור</div>
-    <div id="dash-prod" style="color:var(--muted);font-size:13.5px">פתחי שבוע חדש כדי לראות את רשימת הייצור</div>
+  <div class="card"><div class="sec">📦 רשימת ייצור השבוע</div><div id="dash-prod" style="color:var(--muted);font-size:12.5px">פתחי שבוע חדש לראות רשימת ייצור</div></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div class="card">
+      <div class="sec">📈 חודש נוכחי</div>
+      <div style="font-size:12px;display:flex;justify-content:space-between;margin-bottom:3px"><span>מכירות</span><b>₪28,420</b></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:72%"></div></div>
+      <div style="font-size:10px;color:var(--muted);margin:2px 0 8px">72% מחודש קודם</div>
+      <div style="font-size:12px;display:flex;justify-content:space-between;margin-bottom:3px"><span>גבייה</span><b style="color:var(--ok)">₪21,840</b></div>
+      <div class="prog-bar"><div class="prog-fill" style="width:55%;background:var(--ok)"></div></div>
+    </div>
+    <div class="card">
+      <div class="sec">💳 צ'קים קרובים</div>
+      <div style="padding:4px 8px;background:#FFF5F5;border:1px solid #FECACA;border-radius:6px;font-size:12px;margin-bottom:4px">שמש — ₪840 (מחר)</div>
+      <div style="padding:4px 8px;background:#FFF5F5;border:1px solid #FECACA;border-radius:6px;font-size:12px;margin-bottom:4px">סל החסד — ₪2,400 (20/08)</div>
+      <div style="padding:4px 8px;background:#F5F0E8;border:1px solid #E9E3D6;border-radius:6px;font-size:12px">מאפיית פסגה — ₪1,680 (22/08)</div>
+    </div>
   </div>
 </div>
 
@@ -138,359 +160,751 @@ footer b{color:var(--gold)}
 <div class="page" id="page-week">
   <div class="acts">
     <button class="btn btn-gold" id="btn-open-week">+ פתח שבוע חדש</button>
-    <button class="btn btn-out" id="btn-confirm-orders">✅ אישור הזמנות</button>
-    <span id="week-lbl" style="font-size:12.5px;color:var(--muted)"></span>
+    <button class="btn btn-out" id="btn-confirm-orders">✅ אשר הזמנות</button>
+    <span id="week-lbl" style="font-size:11.5px;color:var(--muted)"></span>
   </div>
-  <div id="week-empty" class="card empty-state">
-    <div class="icon">📋</div>
-    <h3>אין שבוע פתוח</h3>
-    <p>לחצי על "פתח שבוע חדש" לייצר את גיליון השבוע</p>
-  </div>
+  <div id="week-empty" class="card empty-st"><div class="ico">📋</div><h3 style="font-size:13px">אין שבוע פתוח</h3><p style="font-size:12px">לחצי "פתח שבוע חדש"</p></div>
   <div id="week-content" style="display:none">
     <div class="kpis" id="week-kpis"></div>
-    <div class="tbl-wrap">
-      <table><thead><tr><th>לקוח</th><th>עיר</th><th>הזמנה</th><th>יח' / סכום</th><th>סטטוס</th><th>פעולות</th></tr></thead>
-      <tbody id="week-body"></tbody></table>
-    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>לקוח</th><th>עיר</th><th>מחירון</th><th>הזמנה</th><th>יח'/סכום</th><th>סטטוס</th><th>פעולות</th></tr></thead><tbody id="week-body"></tbody></table></div>
   </div>
 </div>
 
 <!-- DELIVERY -->
 <div class="page" id="page-del">
-  <div class="acts" style="flex-wrap:wrap;gap:6px">
+  <div class="acts" style="flex-wrap:wrap;gap:4px">
     <button class="fbtn on" data-city="all">הכל</button>
     <button class="fbtn" data-city="בני ברק">בני ברק</button>
     <button class="fbtn" data-city="ירושלים">ירושלים</button>
-    <button class="fbtn" data-city="תל אביב">תל אביב</button>
+    <button class="fbtn" data-city="תל אביב">ת"א</button>
     <button class="fbtn" data-city="רחובות">רחובות</button>
     <button class="fbtn" data-city="פתח תקווה">פ"ת</button>
-    <input type="search" id="del-search" placeholder="חיפוש לקוח..." style="margin-right:auto;width:160px">
-    <button class="btn btn-out btn-sm" id="btn-sort-alpha">מיון א–ב</button>
-    <button class="btn btn-out btn-sm" id="btn-sort-city">לפי עיר</button>
-    <button class="btn btn-ok" id="btn-print">🖨️ הדפס הכל</button>
+    <input type="search" id="del-search" placeholder="חיפוש..." style="margin-right:auto;width:120px">
+    <button class="btn btn-out btn-sm" id="btn-sort-alpha">א–ב</button>
+    <button class="btn btn-out btn-sm" id="btn-sort-city">עיר</button>
+    <button class="btn btn-ok" id="btn-print">🖨️ הדפס</button>
   </div>
   <div id="del-list"></div>
 </div>
 
 <!-- INVOICES -->
 <div class="page" id="page-inv">
-  <div class="acts">
-    <button class="btn btn-ok" id="btn-gen-inv">הפק חשבוניות לכולם</button>
-    <button class="btn btn-out" id="btn-export-xls">ייצוא Excel</button>
+  <div class="tab-sub">
+    <button class="stab on" data-inv="monthly">חשבוניות חודשיות</button>
+    <button class="stab" data-inv="namemap">מיפוי שמות</button>
   </div>
-  <div class="tbl-wrap">
-    <table><thead><tr><th>שם לחשבונית</th><th>שם חנות</th><th>יחידות</th><th>חזרות</th><th>נטו</th><th>מע"מ</th><th>סה"כ</th><th>סטטוס</th><th></th></tr></thead>
-    <tbody id="inv-body"></tbody></table>
+  <div id="inv-monthly">
+    <div class="acts">
+      <span style="font-size:12px;color:var(--muted)">יולי 2026</span>
+      <button class="btn btn-ok" id="btn-gen-inv">הפק הכל</button>
+      <button class="btn btn-out" onclick="toast('📧 שולח מיילים...')">📧 שלח הכל</button>
+      <button class="btn btn-out" onclick="toast('📊 מייצא...')">📊 Excel</button>
+    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>שם לחשבונית</th><th>חנות</th><th>יח'</th><th>חזרות</th><th>נטו</th><th>מע"מ</th><th>סה"כ</th><th>סטטוס</th><th></th></tr></thead><tbody id="inv-body"></tbody></table></div>
+  </div>
+  <div id="inv-namemap" style="display:none">
+    <div class="card"><div class="sec">מיפוי שמות — תעודה ↔ חשבונית</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:9px">מגדירים פעם אחת — נשמר לתמיד</p>
+      <div class="tbl-wrap"><table><thead><tr><th>שם בתעודת משלוח</th><th>שם בחשבונית</th><th>הערה</th><th></th></tr></thead><tbody>
+        <tr><td>מרדכי</td><td>סל החסד אגודה</td><td>סניף א'</td><td><button class="btn btn-out btn-sm" onclick="toast('✏️')">✏️</button></td></tr>
+        <tr><td>סופר טוב</td><td>סל החסד אגודה</td><td>סניף ב'</td><td><button class="btn btn-out btn-sm" onclick="toast('✏️')">✏️</button></td></tr>
+        <tr><td>קפה הפינה צפון</td><td>קפה הפינה בע"מ</td><td>2 סניפים → חשבונית אחת</td><td><button class="btn btn-out btn-sm" onclick="toast('✏️')">✏️</button></td></tr>
+      </tbody></table></div>
+      <button class="btn btn-gold btn-sm" onclick="toast('+ מיפוי חדש')">+ הוסף מיפוי</button>
+    </div>
   </div>
 </div>
 
 <!-- PAYMENTS -->
 <div class="page" id="page-pay">
-  <div class="kpis">
-    <div class="kpi"><div class="num ok">₪11,840</div><div class="lbl">שולם החודש</div></div>
-    <div class="kpi"><div class="num warn">₪6,580</div><div class="lbl">ממתין</div></div>
-    <div class="kpi"><div class="num red">₪2,100</div><div class="lbl">חוב אדום</div></div>
-    <div class="kpi"><div class="num">3</div><div class="lbl">צ'קים בהמתנה</div></div>
+  <div class="tab-sub">
+    <button class="stab on" data-pay="debts">חובות וגבייה</button>
+    <button class="stab" data-pay="checks">צ'קים</button>
+    <button class="stab" data-pay="bank">דפי בנק</button>
   </div>
-  <div class="acts"><button class="btn btn-gold" id="btn-add-pay">+ רשום תשלום</button></div>
-  <div class="tbl-wrap">
-    <table><thead><tr><th>לקוח</th><th>חוב</th><th>אמצעי</th><th>תנאים</th><th>סטטוס</th><th></th></tr></thead>
-    <tbody id="pay-body"></tbody></table>
+  <div id="pay-debts">
+    <div class="kpis">
+      <div class="kpi"><div class="num ok">₪18,640</div><div class="lbl">שולם החודש</div></div>
+      <div class="kpi"><div class="num warn">₪9,280</div><div class="lbl">ממתין לגבייה</div></div>
+      <div class="kpi"><div class="num red">₪5,900</div><div class="lbl">חוב אדום</div></div>
+      <div class="kpi"><div class="num">3</div><div class="lbl">צ'קים פתוחים</div></div>
+    </div>
+    <div class="arow warn" style="margin-bottom:9px">
+      <div class="aicon">⏰</div>
+      <div class="atext"><b>מינימרקט שמש</b> לא שילם — מועד היה 16/08.
+        <button class="btn btn-out btn-sm" onclick="toast('📧 תזכורת ידנית נשלחה ללקוח!')" style="margin-right:6px">📧 תזכורת ללקוח</button>
+        <button class="btn btn-out btn-sm" onclick="toast('📧 התראת גבייה נשלחה לאסתי!')">📧 התרא לאסתי</button>
+      </div>
+    </div>
+    <div class="acts">
+      <button class="btn btn-gold" id="btn-add-pay">+ רשום תשלום</button>
+      <button class="btn btn-out" onclick="toast('📋 דוח גבייה...')">📋 דוח גבייה</button>
+    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>לקוח</th><th>חוב</th><th>חודשים</th><th>אמצעי</th><th>תנאים</th><th>רמזור</th><th></th></tr></thead><tbody id="pay-body"></tbody></table></div>
+  </div>
+  <div id="pay-checks" style="display:none">
+    <div class="card"><div class="sec">צ'קים בהמתנה</div>
+      <div class="tbl-wrap"><table><thead><tr><th>לקוח</th><th>מס' צ'ק</th><th>סכום</th><th>פירעון</th><th>סטטוס</th></tr></thead><tbody id="checks-body">
+        <tr><td><b>מינימרקט שמש</b></td><td style="font-family:monospace">#4421</td><td style="font-family:monospace">₪840</td><td>17/08/2026</td><td><span class="bx bx-warn">⚠️ מחר</span></td></tr>
+        <tr><td><b>סל החסד</b></td><td style="font-family:monospace">#8823</td><td style="font-family:monospace">₪2,400</td><td>20/08/2026</td><td><span class="bx bx-gray">בהמתנה</span></td></tr>
+        <tr><td><b>מאפיית פסגה</b></td><td style="font-family:monospace">#1104</td><td style="font-family:monospace">₪1,680</td><td>22/08/2026</td><td><span class="bx bx-gray">בהמתנה</span></td></tr>
+      </tbody></table></div>
+      <button class="btn btn-gold btn-sm" onclick="toast('+ צ\'ק חדש נוסף')">+ צ'ק חדש</button>
+    </div>
+  </div>
+  <div id="pay-bank" style="display:none">
+    <div class="card"><div class="sec">📄 העלאת דף בנק</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:9px">קובץ שבועי — המערכת מצליבה מול תשלומים ממתינים ומסמנת מי שילם</p>
+      <div class="scan-zone" onclick="simulateBank()">
+        <div class="ico">🏦</div>
+        <p style="font-size:12.5px">לחצי להעלאת קובץ דף בנק (PDF / Excel)</p>
+        <p style="font-size:10.5px;margin-top:3px;color:var(--muted)">העלאה ידנית · ללא חיבור ישיר לבנק</p>
+      </div>
+      <div id="bank-result" style="display:none;margin-top:11px">
+        <div class="sec">תוצאות הצלבה — 11/08/2026</div>
+        <div class="tbl-wrap"><table><thead><tr><th>תאריך</th><th>תיאור בנק</th><th>סכום</th><th>הותאם ל</th><th>פעולה</th></tr></thead><tbody>
+          <tr><td>10/08</td><td>העברה נכנסת</td><td style="font-family:monospace">₪2,100</td><td><b>חנות ההנאה</b></td><td><span class="bx bx-ok">✓ אוטומטי</span></td></tr>
+          <tr><td>10/08</td><td>הפקדת צ'ק</td><td style="font-family:monospace">₪1,260</td><td><b>מרכול הכרמל</b></td><td><span class="bx bx-ok">✓ אוטומטי</span></td></tr>
+          <tr><td>09/08</td><td>Bit נכנס</td><td style="font-family:monospace">₪480</td><td style="color:var(--warn)">לא זוהה</td><td><button class="btn btn-out btn-sm" onclick="manualMatch(this)">שייך ידנית</button></td></tr>
+          <tr><td>08/08</td><td>העברה נכנסת</td><td style="font-family:monospace">₪3,640</td><td><b>שופרסל שכונתי</b></td><td><span class="bx bx-ok">✓ אוטומטי</span></td></tr>
+        </tbody></table></div>
+        <div style="font-size:11.5px;color:var(--muted)">3 הותאמו אוטומטית · 1 ממתין לשיוך ידני</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- CLIENTS -->
 <div class="page" id="page-clients">
+  <div class="tab-sub">
+    <button class="stab on" data-cl="active">לקוחות פעילים</button>
+    <button class="stab" data-cl="frozen">מוקפאים</button>
+  </div>
+  <div id="cl-active">
+    <div class="acts">
+      <button class="btn btn-gold" id="btn-new-client">+ לקוח חדש</button>
+      <input type="search" id="client-search" placeholder="חיפוש..." style="margin-right:auto;width:160px">
+    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>שם חנות</th><th>שם לחשבונית</th><th>עיר</th><th>מחירון</th><th>מע"מ</th><th>תשלום</th><th>הזמנה</th><th>חוב</th><th></th></tr></thead><tbody id="clients-body"></tbody></table></div>
+  </div>
+  <div id="cl-frozen" style="display:none">
+    <div class="card"><div class="sec">לקוחות מוקפאים</div>
+      <div class="tbl-wrap"><table><thead><tr><th>שם חנות</th><th>עיר</th><th>סיבה</th><th>תאריך</th><th></th></tr></thead><tbody>
+        <tr><td><b>בייגלה חדש</b></td><td>ת"א</td><td>חוב ₪3,400</td><td>01/07</td><td><button class="btn btn-ok btn-sm" onclick="toast('✅ לקוח הופשר')">בטל הקפאה</button></td></tr>
+        <xx><xx><x>xxxxx xxxxx</x></xx><xx>xxxxxx</xx><xx>xxxx xxxx</xx><xx>xx/xx</xx><xx><xxxxxx xxxxx="xxx xxxxxx xxxxxx" xxxxxxx="xxxxxx'x xxxx xxxxx'x">xxx xxxxx</xxxxxx></xx></xx>                                           
+      </tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUPPLIERS -->
+<div class="page" id="page-suppliers">
+  <div class="tab-sub">
+    <button class="stab on" data-sup="invoices">מעקב חשבוניות</button>
+    <button class="stab" data-sup="paydates">מועדי תשלום</button>
+    <button class="stab" data-sup="credits">זיכויים</button>
+    <button class="stab" data-sup="history">תשלומים</button>
+    <button class="stab" data-sup="karteset">כרטסת</button>
+  </div>
+  <div id="sup-invoices">
+    <div class="kpis">
+      <div class="kpi"><div class="num warn">₪28,328</div><div class="lbl">לתשלום</div></div>
+      <div class="kpi"><div class="num red">2</div><div class="lbl">חשבוניות חסרות</div></div>
+      <div class="kpi"><div class="num ok">₪12,800</div><div class="lbl">שולם החודש</div></div>
+      <div class="kpi"><div class="num warn">3</div><div class="lbl">זיכויים פתוחים</div></div>
+    </div>
+    <div class="arow warn" style="margin-bottom:9px"><div class="aicon">⚠️</div><div class="atext"><b>טרה + ביסלי</b> לא שלחו חשבונית יולי — צפי ₪8,040 חסר. <button class="btn btn-out btn-sm" onclick="toast('📧 תזכורות נשלחו!')" style="margin-right:6px">📧 שלח תזכורות</button></div></div>
+    <div class="tbl-wrap"><table><thead><tr><th>ספק</th><th>חודש</th><th>מס' חשבונית</th><th>סכום</th><th>מע"מ</th><th>בקשה נשלחה</th><th>התקבלה</th><th>מועד תשלום</th><th>יתרה</th><th>סטטוס</th><th></th></tr></thead><tbody>
+      <tr><td><b>טרה</b></td><td>יולי</td><td style="color:var(--muted)">—</td><td style="color:var(--muted)">₪4,800*</td><td>—</td><td>01/08</td><td style="color:var(--red);font-weight:700">לא הגיעה</td><td>31/08</td><td style="color:var(--red)">חסרה</td><td><span class="bx bx-red">❌ חסרה</span></td><td><button class="btn btn-out btn-sm" onclick="toast('📧 תזכורת לטרה!')">תזכורת</button></td></tr>
+      <tr><td><b>שוקופז</b></td><td>יולי</td><td style="font-family:monospace">INV-07-088</td><td style="font-family:monospace">₪8,400</td><td style="font-family:monospace">₪1,512</td><td>01/08</td><td>04/08</td><td>31/08</td><td style="font-family:monospace">₪9,912</td><td><span class="bx bx-warn">ממתין</span></td><td><button class="btn btn-ok btn-sm" onclick="paySupplier(this,'שוקופז',9912)">שלם</button></td></tr>
+      <tr><td><b>תנובה</b></td><td>יולי</td><td style="font-family:monospace">TNV-2407-44</td><td style="font-family:monospace">₪6,200</td><td style="font-family:monospace">₪1,116</td><td>01/08</td><td>02/08</td><td>15/08</td><td style="font-family:monospace;color:var(--ok)">₪0</td><td><span class="bx bx-ok">✓ שולם</span></td><td><button class="btn btn-out btn-sm">פרטים</button></td></tr>
+      <tr><td><b>אמבל</b></td><td>יולי</td><td style="font-family:monospace">AMB-07-021</td><td style="font-family:monospace">₪4,100</td><td style="font-family:monospace">₪738</td><td>01/08</td><td>06/08</td><td>31/08</td><td style="font-family:monospace">₪4,838</td><td><span class="bx bx-warn">ממתין</span></td><td><button class="btn btn-ok btn-sm" onclick="paySupplier(this,'אמבל',4838)">שלם</button></td></tr>
+      <tr><td><b>ביסלי</b></td><td>יולי</td><td style="color:var(--muted)">—</td><td style="color:var(--muted)">₪3,240*</td><td>—</td><td>01/08</td><td style="color:var(--red);font-weight:700">לא הגיעה</td><td>31/08</td><td style="color:var(--red)">חסרה</td><td><span class="bx bx-red">❌ חסרה</span></td><td><button class="btn btn-out btn-sm" onclick="toast('📧 תזכורת לביסלי!')">תזכורת</button></td></tr>
+    </tbody></table></div>
+    <p style="font-size:10.5px;color:var(--muted)">* סכום משוער לפי ממוצע חודשים קודמים</p>
+  </div>
+  <div id="sup-paydates" style="display:none">
+    <div class="card"><div class="sec">⏰ מועדי תשלום — אוגוסט 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>ספק</th><th>תנאי תשלום</th><th>מועד</th><th>סכום</th><th>ימים</th><th>סטטוס</th></tr></thead><tbody>
+        <tr><td><b>תנובה</b></td><td>שוטף+15</td><td>15/08</td><td style="font-family:monospace">₪7,316</td><td style="color:var(--ok)">שולם</td><td><span class="bx bx-ok">✓ שולם</span></td></tr>
+        <tr><td><b>שוקופז</b></td><td>שוטף+30</td><td>31/08</td><td style="font-family:monospace">₪9,912</td><td style="color:var(--warn)">14 יום</td><td><span class="bx bx-warn">ממתין</span></td></tr>
+        <tr><td><b>אמבל</b></td><td>שוטף+30</td><td>31/08</td><td style="font-family:monospace">₪4,838</td><td style="color:var(--warn)">14 יום</td><td><span class="bx bx-warn">ממתין</span></td></tr>
+        <tr><td><b>טרה</b></td><td>שוטף+30</td><td>31/08</td><td style="color:var(--muted)">לא ידוע</td><td style="color:var(--red)">14 יום</td><td><span class="bx bx-red">חשבונית חסרה</span></td></tr>
+      </tbody></table></div>
+      <div class="arow warn"><div class="aicon">⏰</div><div class="atext">14 יום לפירעון שוקופז+אמבל (₪14,750). התראה תישלח 3 ימים לפני.</div></div>
+    </div>
+  </div>
+  <div id="sup-credits" style="display:none">
+    <div class="card"><div class="sec">זיכויים ממתינים מספקים</div>
+      <div class="tbl-wrap"><table><thead><tr><th>ספק</th><th>סיבה</th><th>סכום</th><th>נפתח</th><th>חודשים</th><th>סטטוס</th><th></th></tr></thead><tbody id="credits-body">
+        <tr><td><b>שוקופז</b></td><td>סחורה פגומה — 3 ק"ג שוקולד</td><td style="font-family:monospace;color:var(--ok)">₪420</td><td>01/08</td><td>1</td><td><span class="bx bx-warn">לא מומש</span></td><td><button class="btn btn-ok btn-sm" onclick="closeCredit(this,'שוקופז',420)">✅ סגור</button></td></tr>
+        <tr><td><b>טרה</b></td><td>חוסר — 2 קרטון חלב</td><td style="font-family:monospace;color:var(--ok)">₪280</td><td>15/07</td><td style="color:var(--red);font-weight:700">2</td><td><span class="bx bx-red">⚠️ לא מומש 2 חודשים</span></td><td><button class="btn btn-ok btn-sm" onclick="closeCredit(this,'טרה',280)">✅ סגור</button></td></tr>
+        <tr><td><b>אמבל</b></td><td>מוצר חזר — שמנת תפוחה</td><td style="font-family:monospace;color:var(--ok)">₪160</td><td>05/08</td><td>1</td><td><span class="bx bx-gray">ממתין לחשבונית</span></td><td><button class="btn btn-ok btn-sm" onclick="closeCredit(this,'אמבל',160)">✅ סגור</button></td></tr>
+      </tbody></table></div>
+      <button class="btn btn-gold btn-sm" onclick="addCredit()">+ רשום זיכוי חדש</button>
+    </div>
+  </div>
+  <div id="sup-history" style="display:none">
+    <div class="card"><div class="sec">היסטוריית תשלומים לספקים</div>
+      <div class="tbl-wrap"><table><thead><tr><th>ספק</th><th>תאריך</th><th>סכום</th><th>חשבונית</th><th>צורת תשלום</th><th>יתרה</th></tr></thead><tbody>
+        <tr><td><b>תנובה</b></td><td>15/08/26</td><td style="font-family:monospace">₪7,316</td><td style="font-family:monospace">TNV-2407-44</td><td>העברה</td><td style="font-family:monospace;color:var(--ok)">₪0</td></tr>
+        <tr><td><b>שוקופז</b></td><td>31/07/26</td><td style="font-family:monospace">₪9,240</td><td style="font-family:monospace">INV-06-072</td><td>העברה</td><td style="font-family:monospace;color:var(--ok)">₪0</td></tr>
+        <tr><td><b>טרה</b></td><td>31/07/26</td><td style="font-family:monospace">₪4,800</td><td style="font-family:monospace">TRA-07-041</td><td>הוראת קבע</td><td style="font-family:monospace;color:var(--ok)">₪0</td></tr>
+        <tr><td><b>אמבל</b></td><td>30/06/26</td><td style="font-family:monospace">₪3,920</td><td style="font-family:monospace">AMB-06-018</td><td>העברה</td><td style="font-family:monospace;color:var(--ok)">₪0</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="sup-karteset" style="display:none">
+    <div class="card"><div class="sec">כרטסת ספק — שליחה וקבלה</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:9px">סוף חודש — בקשה אוטומטית לכל ספק. כשמגיעה — התאמה מול הרישום + סימון פערים.</p>
+      <div class="tbl-wrap"><table><thead><tr><th>ספק</th><th>חודש</th><th>בקשה נשלחה</th><th>התקבלה</th><th>פערים</th><th></th></tr></thead><tbody>
+        <tr><td><b>שוקופז</b></td><td>יולי 2026</td><td>01/08</td><td>03/08</td><td><span class="bx bx-ok">אין פערים</span></td><td><button class="btn btn-out btn-sm" onclick="toast('📋 כרטסת שוקופז')">צפה</button></td></tr>
+        <tr><td><b>תנובה</b></td><td>יולי 2026</td><td>01/08</td><td>04/08</td><td><span class="bx bx-warn">פרט 1 — בדיקה</span></td><td><button class="btn btn-out btn-sm" onclick="toast('⚠️ פתחי לבדיקה')">בדוק</button></td></tr>
+        <tr><td><b>טרה</b></td><td>יולי 2026</td><td>01/08</td><td style="color:var(--red)">לא הגיעה</td><td><span class="bx bx-red">חסרה</span></td><td><button class="btn btn-out btn-sm" onclick="toast('📧 תזכורת לטרה!')">תזכורת</button></td></tr>
+      </tbody></table></div>
+      <button class="btn btn-gold btn-sm" onclick="toast('📧 שולח בקשות כרטסת...')">📧 שלח בקשות</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCAN -->
+<div class="page" id="page-scan">
+  <div class="tab-sub">
+    <button class="stab on" data-sc="upload">סריקת חשבונית</button>
+    <button class="stab" data-sc="history">היסטוריה</button>
+  </div>
+  <div id="sc-upload">
+    <div class="card"><div class="sec">📸 סריקת חשבונית ספק</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:9px">גישת בעלים בלבד · OCR מזהה → מעדכן הוצאות + תיוק ב-Drive</p>
+      <div class="scan-zone" onclick="startScan()"><div class="ico">📷</div><p style="font-size:12.5px">לחצי לצילום / העלאת חשבונית</p><p style="font-size:10.5px;margin-top:3px">JPG · PDF</p></div>
+      <div id="scan-proc" style="display:none;margin-top:10px;text-align:center;padding:14px;background:#F5F0E8;border-radius:8px"><div style="font-size:20px;margin-bottom:5px">⏳</div><div style="font-size:12px;color:var(--muted)">OCR מעבד...</div></div>
+      <div id="scan-form" style="display:none;margin-top:10px">
+        <div class="arow ok" style="margin-bottom:9px"><div class="aicon">✅</div><div class="atext"><b>OCR הצליח!</b> בדקי ואשרי</div></div>
+        <div class="row2">
+          <div class="field"><label>ספק (מזוהה)</label><input id="ocr-sup" value="שוקופז בע״מ"></div>
+          <div class="field"><label>מספר חשבונית</label><input id="ocr-num" value="INV-2408-034"></div>
+        </div>
+        <div class="row3">
+          <div class="field"><label>סכום לפני מע"מ (₪)</label><input id="ocr-amt" type="number" value="8400"></div>
+          <div class="field"><label>מע"מ 18% (₪)</label><input id="ocr-vat" type="number" value="1512"></div>
+          <div class="field"><label>סה"כ לתשלום (₪)</label><input id="ocr-tot" type="number" value="9912"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>תאריך חשבונית</label><input id="ocr-date" type="date" value="2026-08-12"></div>
+          <div class="field"><label>קטגוריה</label><select id="ocr-cat"><option>חומרי גלם</option><option>ציוד מטבח</option><option>משלוחים</option><option>כללי</option></select></div>
+        </div>
+        <div class="field"><label>תיוק ב-Drive (אוטומטי)</label><input value="חשבוניות/2026/אוגוסט/שוקופז-INV-2408-034.pdf" style="background:#F5F0E8;color:var(--muted)" readonly></div>
+        <div class="acts">
+          <button class="btn btn-ok" onclick="saveScan()">✅ אשר · שמור ב-Drive</button>
+          <button class="btn btn-out" onclick="q('scan-form').style.display='none'">ביטול</button>
+        </div>
+      </div>
+      <div id="scan-blurry" style="display:none;margin-top:10px"><div class="arow red"><div class="aicon">⚠️</div><div class="atext"><b>תמונה מטושטשת</b> — נוסף לתור ידני. <button class="btn btn-out btn-sm" onclick="q('scan-blurry').style.display='none'">סגור</button></div></div></div>
+    </div>
+    <div class="card">
+      <div class="sec">📧 שליחה לרואה חשבון</div>
+      <div class="row2">
+        <div class="field"><label>חודש</label><select><option>יולי 2026</option><option>יוני 2026</option></select></div>
+        <div class="field"><label>מע"מ מהבית (₪) — לרו"ח בלבד</label><input type="number" id="vat-home-scan" value="680"></div>
+      </div>
+      <div class="field"><label>הערה</label><textarea>חשבונית טרה ליולי טרם התקבלה.</textarea></div>
+      <div style="font-size:11.5px;color:var(--muted);margin-bottom:7px">כולל: 14 חשבוניות ספקים · גיליון הוצאות · 3 תלושים</div>
+      <button class="btn btn-ok" onclick="toast('📧 חבילה חודשית נשלחה לרואה חשבון!')">📧 שלח חבילה</button>
+    </div>
+  </div>
+  <div id="sc-history" style="display:none">
+    <div class="card"><div class="sec">חשבוניות שנסרקו — אוגוסט 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>תאריך</th><th>ספק</th><th>חשבונית</th><th>סכום</th><th>Drive</th><th>סטטוס</th></tr></thead><tbody id="scan-hist">
+        <tr><td>12/08</td><td>שוקופז</td><td style="font-family:monospace">INV-2408-034</td><td style="font-family:monospace">₪9,912</td><td style="font-size:10.5px;color:var(--ok)">📁 נשמר</td><td><span class="bx bx-ok">✓ נרשם</span></td></tr>
+        <tr><td>10/08</td><td>תנובה</td><td style="font-family:monospace">TNV-2408-012</td><td style="font-family:monospace">₪7,316</td><td style="font-size:10.5px;color:var(--ok)">📁 נשמר</td><td><span class="bx bx-ok">✓ נרשם</span></td></tr>
+        <tr><td>08/08</td><td>ביסלי</td><td style="color:var(--muted)">—</td><td style="font-family:monospace">₪3,240</td><td style="color:var(--muted)">—</td><td><span class="bx bx-warn">מטושטש — בדיקה</span></td></tr>
+        <tr><td>05/08</td><td>אמבל</td><td style="font-family:monospace">AMB-2408-007</td><td style="font-family:monospace">₪4,838</td><td style="font-size:10.5px;color:var(--ok)">📁 נשמר</td><td><span class="bx bx-ok">✓ נרשם</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPENSES -->
+<div class="page" id="page-expenses">
+  <div class="kpis">
+    <div class="kpi"><div class="num warn">₪31,060</div><div class="lbl">הוצאות החודש</div></div>
+    <div class="kpi"><div class="num">₪17,640</div><div class="lbl">חומרי גלם</div></div>
+    <div class="kpi"><div class="num">₪8,780</div><div class="lbl">משכורות</div></div>
+    <div class="kpi"><div class="num ok">₪4,640</div><div class="lbl">שאר</div></div>
+  </div>
   <div class="acts">
-    <button class="btn btn-gold" id="btn-new-client">+ לקוח חדש</button>
-    <input type="search" id="client-search" placeholder="חיפוש..." style="margin-right:auto;width:180px">
+    <button class="btn btn-gold" onclick="addExpense()">+ הוצאה ידנית</button>
+    <select id="exp-cat-f" style="border:1.5px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;font-family:inherit;background:#fff" onchange="renderExpenses()">
+      <option value="">כל הקטגוריות</option>
+      <option>חומרי גלם</option><option>משכורות</option><option>משלוחים</option>
+      <option>הנהלת חשבונות</option><option>ציוד מטבח</option><option>ביטוח לאומי</option>
+      <option>מע"מ</option><option>משיכת בעלים</option><option>כללי</option>
+    </select>
+    <select style="border:1.5px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;font-family:inherit;background:#fff">
+      <option>אוגוסט 2026</option><option>יולי 2026</option>
+    </select>
   </div>
-  <div class="tbl-wrap">
-    <table><thead><tr><th>שם חנות</th><th>שם לחשבונית</th><th>עיר</th><th>מע"מ</th><th>תשלום</th><th>הזמנה קבועה</th><th></th></tr></thead>
-    <tbody id="clients-body"></tbody></table>
-  </div>
+  <div class="tbl-wrap"><table><thead><tr><th>תאריך</th><th>שם הוצאה</th><th>קטגוריה</th><th>סכום</th><th>מע"מ</th><th>צורת תשלום</th><th>קובץ</th><th></th></tr></thead><tbody id="exp-body"></tbody></table></div>
 </div>
 
-<!-- MODAL: ORDER -->
-<div class="ov" id="ov-order">
-  <div class="modal">
-    <div class="mhead"><h3 id="order-title">הזמנה</h3><button class="mclose" id="close-order">×</button></div>
-    <div id="order-body"></div>
-    <div class="acts" style="margin-top:10px">
-      <button class="btn btn-gold" id="btn-save-order">💾 שמור</button>
-      <button class="btn btn-out" id="cancel-order">ביטול</button>
+<!-- PAYSLIPS -->
+<div class="page" id="page-payslips">
+  <div class="tab-sub">
+    <button class="stab on" data-ps="scan">סריקת תלוש</button>
+    <button class="stab" data-ps="grid">גיליון משכורות</button>
+    <button class="stab" data-ps="bli">ביטוח לאומי</button>
+  </div>
+  <div id="ps-scan">
+    <div class="card"><div class="sec">📄 סריקת תלוש משכורת</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:9px">צילום / PDF — OCR מזהה שם, ברוטו, נטו, ניכויים → מעדכן גיליון משכורות</p>
+      <div class="scan-zone" onclick="startPayslip()"><div class="ico">📄</div><p style="font-size:12.5px">לחצי להעלאת תלוש משכורת</p><p style="font-size:10.5px;margin-top:3px">JPG · PDF</p></div>
+      <div id="ps-proc" style="display:none;margin-top:9px;text-align:center;padding:12px;background:#F5F0E8;border-radius:8px"><div style="font-size:18px;margin-bottom:4px">⏳</div><div style="font-size:12px;color:var(--muted)">OCR מעבד תלוש...</div></div>
+      <div id="ps-form" style="display:none;margin-top:10px">
+        <div class="arow ok" style="margin-bottom:9px"><div class="aicon">✅</div><div class="atext"><b>OCR זיהה את התלוש</b> — בדקי ואשרי</div></div>
+        <div class="row3">
+          <div class="field"><label>שם עובד</label><input id="ps-name" value="שרית לוי"></div>
+          <div class="field"><label>חודש</label><input id="ps-month" value="אוגוסט 2026"></div>
+          <div class="field"><label>ת.ז.</label><input id="ps-id" value="012-****-3"></div>
+        </div>
+        <div class="row3">
+          <div class="field"><label>ברוטו (₪)</label><input id="ps-gross" type="number" value="5800"></div>
+          <div class="field"><label>ניכויים (₪)</label><input id="ps-ded" type="number" value="1600"></div>
+          <div class="field"><label>נטו לתשלום (₪)</label><input id="ps-net" type="number" value="4200"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>ביטוח לאומי עובד (₪)</label><input id="ps-bli" type="number" value="580"></div>
+          <div class="field"><label>מס הכנסה (₪)</label><input id="ps-tax" type="number" value="840"></div>
+        </div>
+        <div class="acts"><button class="btn btn-ok" onclick="savePayslip()">✅ אשר ושמור</button><button class="btn btn-out" onclick="q('ps-form').style.display='none'">ביטול</button></div>
+      </div>
     </div>
   </div>
-</div>
-
-<!-- MODAL: CLIENT -->
-<div class="ov" id="ov-client">
-  <div class="modal">
-    <div class="mhead"><h3 id="client-modal-title">לקוח חדש</h3><button class="mclose" id="close-client">×</button></div>
-    <div class="row2">
-      <div class="field"><label>שם חנות</label><input id="nc-store" placeholder="חנות ההנאה"></div>
-      <div class="field"><label>שם לחשבונית</label><input id="nc-inv" placeholder="א. כהן מסחר"></div>
-    </div>
-    <div class="row2">
-      <div class="field"><label>עיר</label><select id="nc-city"><option>בני ברק</option><option>ירושלים</option><option>תל אביב</option><option>רחובות</option><option>פתח תקווה</option><option>אשדוד</option></select></div>
-      <div class="field"><label>כתובת</label><input id="nc-addr" placeholder="רחוב, מספר"></div>
-    </div>
-    <div class="row2">
-      <div class="field"><label>טלפון</label><input id="nc-phone" placeholder="050-0000000"></div>
-      <div class="field"><label>מע"מ</label><select id="nc-vat"><option value="yes">עם מע"מ</option><option value="no">ללא מע"מ</option></select></div>
-    </div>
-    <div class="row2">
-      <div class="field"><label>אמצעי תשלום</label><select id="nc-pay"><option>העברה בנקאית</option><option>צ'ק</option><option>Bit</option></select></div>
-      <div class="field"><label>תנאי תשלום</label><select id="nc-terms"><option>שוטף</option><option>שוטף+30</option><option>שוטף+60</option></select></div>
-    </div>
-    <div style="font-size:13.5px;font-weight:700;margin:12px 0 8px">הזמנה קבועה שבועית</div>
-    <div id="nc-prods"></div>
-    <div class="acts" style="margin-top:12px">
-      <button class="btn btn-gold" id="btn-save-client">שמור לקוח</button>
-      <button class="btn btn-out" id="cancel-client">ביטול</button>
+  <div id="ps-grid" style="display:none">
+    <div class="card"><div class="sec">גיליון משכורות — אוגוסט 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>עובד</th><th>ברוטו</th><th>ניכויים</th><th>נטו</th><th>ביטוח לאומי</th><th>מס הכנסה</th><th>סטטוס</th></tr></thead><tbody id="ps-grid-body">
+        <tr><td><b>שרית לוי</b></td><td style="font-family:monospace">₪5,800</td><td style="font-family:monospace">₪1,600</td><td style="font-family:monospace">₪4,200</td><td style="font-family:monospace">₪580</td><td style="font-family:monospace">₪840</td><td><span class="bx bx-ok">✓ נרשם</span></td></tr>
+        <tr><td><b>יוסף אברהם</b></td><td style="font-family:monospace">₪6,200</td><td style="font-family:monospace">₪1,620</td><td style="font-family:monospace">₪4,580</td><td style="font-family:monospace">₪620</td><td style="font-family:monospace">₪960</td><td><span class="bx bx-ok">✓ נרשם</span></td></tr>
+        <tr><td><b>מרים כהן</b></td><td style="color:var(--muted)">—</td><td style="color:var(--muted)">—</td><td style="color:var(--muted)">—</td><td style="color:var(--muted)">—</td><td style="color:var(--muted)">—</td><td><span class="bx bx-gray">ממתין להעלאה</span></td></tr>
+      </tbody></table></div>
+      <div style="font-size:12px;color:var(--muted)">סה"כ עלות מעסיק: <b style="color:var(--ink)">₪13,400</b></div>
     </div>
   </div>
-</div>
-
-<!-- MODAL: PAYMENT -->
-<div class="ov" id="ov-pay">
-  <div class="modal" style="max-width:380px">
-    <div class="mhead"><h3>רישום תשלום</h3><button class="mclose" id="close-pay">×</button></div>
-    <div class="field"><label>לקוח</label><select id="pay-client" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit"></select></div>
-    <div class="row2">
-      <div class="field"><label>סכום (₪)</label><input id="pay-amount" type="number" placeholder="0"></div>
-      <div class="field"><label>אמצעי</label><select id="pay-method" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit"><option>העברה בנקאית</option><option>צ'ק</option><option>Bit</option></select></div>
-    </div>
-    <div class="row2">
-      <div class="field"><label>תאריך</label><input id="pay-date" type="date"></div>
-      <div class="field"><label>אסמכתה</label><input id="pay-note" placeholder="הערה / מס' צ'ק"></div>
-    </div>
-    <button class="btn btn-ok" id="btn-save-pay">✅ אשר תשלום</button>
-  </div>
-</div>
-
-<!-- MODAL: CONFIRM -->
-<div class="ov" id="ov-confirm">
-  <div class="modal" style="max-width:400px;text-align:center">
-    <div style="font-size:44px;margin-bottom:10px">✅</div>
-    <div style="font-size:18px;font-weight:700;margin-bottom:8px">הזמנות אושרו!</div>
-    <div id="confirm-txt" style="font-size:13.5px;color:var(--muted);margin-bottom:20px;line-height:1.7"></div>
-    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-gold" id="confirm-to-del">📄 תעודות משלוח</button>
-      <button class="btn btn-out" id="confirm-to-inv">🧾 חשבוניות</button>
-      <button class="btn btn-out" id="confirm-close">סגור</button>
+  <div id="ps-bli" style="display:none">
+    <div class="card"><div class="sec">ביטוח לאומי — עדכון ידני</div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:9px">ביטוח לאומי לא מחויב דרך תלוש — יש להזין ידנית בגיליון נפרד</p>
+      <div class="tbl-wrap"><table><thead><tr><th>חודש</th><th>ניכוי עובדים</th><th>חלק מעסיק</th><th>סה"כ</th><th>שולם</th><th>סטטוס</th></tr></thead><tbody>
+        <tr><td>יולי 2026</td><td style="font-family:monospace">₪1,200</td><td style="font-family:monospace">₪2,160</td><td style="font-family:monospace">₪3,360</td><td style="font-family:monospace;color:var(--ok)">₪3,360</td><td><span class="bx bx-ok">✓ שולם</span></td></tr>
+        <tr><td>אוגוסט 2026</td><td style="font-family:monospace">₪1,200</td><td style="font-family:monospace">₪2,160</td><td style="font-family:monospace">₪3,360</td><td style="color:var(--muted)">—</td><td><span class="bx bx-warn">ממתין</span></td></tr>
+      </tbody></table></div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <span style="font-size:12px">רשום תשלום:</span>
+        <input type="number" placeholder="3360" style="border:1.5px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;font-family:monospace;width:90px">
+        <input type="date" style="border:1.5px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;font-family:inherit">
+        <button class="btn btn-ok" onclick="toast('✅ ביטוח לאומי נרשם!')">שמור</button>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- RECIPES -->
+<div class="page" id="page-recipes">
+  <div class="tab-sub">
+    <button class="stab on" data-rec="list">מוצרים ועלויות</button>
+    <button class="stab" data-rec="rawmat">חומרי גלם</button>
+    <button class="stab" data-rec="pricing">תמחור חכם</button>
+  </div>
+  <div id="rec-list">
+    <div class="kpis">
+      <div class="kpi"><div class="num">16</div><div class="lbl">מוצרים</div></div>
+      <div class="kpi"><div class="num ok">38%</div><div class="lbl">רווח ממוצע</div></div>
+      <div class="kpi"><div class="num warn">2</div><div class="lbl">מתחת לסף 30%</div></div>
+    </div>
+    <div class="tbl-wrap"><table><thead><tr><th>מוצר</th><th>מחירון קבוע</th><th>מחירון מזדמן</th><th>עלות</th><th>רווח (קבוע)</th><th>מגמה</th><th></th></tr></thead><tbody>
+      <tr><td><b>רולדת שוקולד</b></td><td style="font-family:monospace">₪38</td><td style="font-family:monospace">₪44</td><td style="font-family:monospace">₪22.40</td><td><span style="color:var(--ok);font-weight:700">41%</span><div class="prog-bar" style="margin-top:2px"><div class="prog-fill" style="width:41%"></div></div></td><td><span class="bx bx-warn">↑ עלתה</span></td><td><button class="btn btn-out btn-sm" onclick="toast('📋 מתכון...')">מתכון</button></td></tr>
+      <tr><td><b>בליצ'ס ריבת חלב</b></td><td style="font-family:monospace">₪36</td><td style="font-family:monospace">₪42</td><td style="font-family:monospace">₪18.20</td><td><span style="color:var(--ok);font-weight:700">49%</span><div class="prog-bar" style="margin-top:2px"><div class="prog-fill" style="width:49%"></div></div></td><td><span class="bx bx-ok">יציב</span></td><td><button class="btn btn-out btn-sm">מתכון</button></td></tr>
+      <tr><td><b>עוגת שמנת אפויה</b></td><td style="font-family:monospace">₪39</td><td style="font-family:monospace">₪46</td><td style="font-family:monospace">₪24.80</td><td><span style="color:var(--ok);font-weight:700">36%</span><div class="prog-bar" style="margin-top:2px"><div class="prog-fill" style="width:36%"></div></div></td><td><span class="bx bx-ok">יציב</span></td><td><button class="btn btn-out btn-sm">מתכון</button></td></tr>
+      <tr><td><b>כדורי גבינה</b></td><td style="font-family:monospace">₪20</td><td style="font-family:monospace">₪26</td><td style="font-family:monospace">₪13.40</td><td><span style="color:var(--warn);font-weight:700">33%</span><div class="prog-bar" style="margin-top:2px"><div class="prog-fill" style="width:33%;background:var(--warn)"></div></div></td><td><span class="bx bx-warn">↓ ירד</span></td><td><button class="btn btn-out btn-sm">מתכון</button></td></tr>
+      <tr><td><b>עוגת גבינה אפויה</b></td><td style="font-family:monospace">₪45</td><td style="font-family:monospace">₪52</td><td style="font-family:monospace">₪29.10</td><td><span style="color:var(--ok);font-weight:700">35%</span><div class="prog-bar" style="margin-top:2px"><div class="prog-fill" style="width:35%"></div></div></td><td><span class="bx bx-ok">יציב</span></td><td><button class="btn btn-out btn-sm">מתכון</button></td></tr>
+      <tr><td><b>מיני רולדה</b></td><td style="font-family:monospace">₪18</td><td style="font-family:monospace">₪22</td><td style="font-family:monospace">₪11.80</td><td><span style="color:var(--warn);font-weight:700">34%</span><div class="prog-bar" style="margin-top:2px"><div class="prog-fill" style="width:34%;background:var(--warn)"></div></div></td><td><span class="bx bx-warn">↑ עלתה</span></td><td><button class="btn btn-out btn-sm">מתכון</button></td></tr>
+    </tbody></table></div>
+  </div>
+  <div id="rec-rawmat" style="display:none">
+    <div class="card"><div class="sec">חומרי גלם — מחירים שוטפים</div>
+      <div class="tbl-wrap"><table><thead><tr><th>חומר גלם</th><th>יחידה</th><th>מחיר</th><th>קודם</th><th>שינוי</th><th>ספק</th></tr></thead><tbody>
+        <tr><td><b>שוקולד פרמיום</b></td><td>ק"ג</td><td style="font-family:monospace">₪42.00</td><td style="font-family:monospace">₪37.50</td><td><span class="bx bx-red">↑ +12%</span></td><td>שוקופז</td></tr>
+        <tr><td><b>קמח לבן</b></td><td>ק"ג</td><td style="font-family:monospace">₪4.80</td><td style="font-family:monospace">₪4.80</td><td><span class="bx bx-ok">יציב</span></td><td>תנובה</td></tr>
+        <tr><td><b>גבינה לבנה 5%</b></td><td>ק"ג</td><td style="font-family:monospace">₪18.40</td><td style="font-family:monospace">₪17.20</td><td><span class="bx bx-warn">↑ +7%</span></td><td>תנובה</td></tr>
+        <tr><td><b>שמנת 32%</b></td><td>ל'</td><td style="font-family:monospace">₪14.60</td><td style="font-family:monospace">₪14.60</td><td><span class="bx bx-ok">יציב</span></td><td>תנובה</td></tr>
+        <tr><td><b>ריבת חלב</b></td><td>ק"ג</td><td style="font-family:monospace">₪28.00</td><td style="font-family:monospace">₪28.00</td><td><span class="bx bx-ok">יציב</span></td><td>אמבל</td></tr>
+        <tr><td><b>ביצים</b></td><td>יח'</td><td style="font-family:monospace">₪1.80</td><td style="font-family:monospace">₪1.60</td><td><span class="bx bx-warn">↑ +12.5%</span></td><td>טרה</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="rec-pricing" style="display:none">
+    <div class="card"><div class="sec">🎯 התראות תמחור</div>
+      <div class="arow warn"><div class="aicon">⚠️</div><div class="atext"><b>רולדת שוקולד</b> — שוקולד ↑12%, עלות ↑₪4.20, רווח 47%→41%. מחיר קבוע מוצע: <b>₪42</b> <button class="btn btn-out btn-sm" onclick="toast('✅ מחיר עודכן!')" style="margin-right:6px">עדכן</button></div></div>
+      <div class="arow warn"><div class="aicon">⚠️</div><div class="atext"><b>כדורי גבינה</b> — רווח 33%, קרוב לסף 30%. מחיר מוצע: <b>₪22</b> <button class="btn btn-out btn-sm" onclick="toast('✅ מחיר עודכן!')" style="margin-right:6px">עדכן</button></div></div>
+      <div class="arow ok"><div class="aicon">✅</div><div class="atext">שאר המוצרים — רווח מעל 35%, ללא צורך בפעולה</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- REPORTS -->
+<div class="page" id="page-reports">
+  <div class="tab-sub">
+    <button class="stab on" data-rp="pl">רווח והפסד</button>
+    <button class="stab" data-rp="collection">גבייה</button>
+    <button class="stab" data-rp="sales-cl">מכירות לקוח</button>
+    <button class="stab" data-rp="sales-pr">מכירות מוצר</button>
+    <button class="stab" data-rp="exp-rep">הוצאות</button>
+    <button class="stab" data-rp="sup-rep">ספקים</button>
+    <button class="stab" data-rp="vat">מע"מ</button>
+  </div>
+  <div id="rp-pl">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="card">
+        <div class="sec">רווח והפסד — יולי 2026</div>
+        <table style="width:100%;font-size:12px">
+          <tr><td style="padding:5px 0;font-weight:700">מכירות</td><td style="font-family:monospace;text-align:left">₪28,420</td></tr>
+          <tr><td style="padding:5px 0;color:var(--muted)">עלות חומרי גלם</td><td style="font-family:monospace;text-align:left;color:var(--red)">₪(17,640)</td></tr>
+          <tr style="border-top:2px solid #E9E3D6"><td style="padding:5px 0;font-weight:700;color:var(--ok)">רווח גולמי</td><td style="font-family:monospace;text-align:left;font-weight:700;color:var(--ok)">₪10,780 (38%)</td></tr>
+          <tr><td style="padding:5px 0;color:var(--muted)">משכורות</td><td style="font-family:monospace;text-align:left;color:var(--red)">₪(8,780)</td></tr>
+          <tr><td style="padding:5px 0;color:var(--muted)">הוצאות תפעוליות</td><td style="font-family:monospace;text-align:left;color:var(--red)">₪(2,840)</td></tr>
+          <tr style="border-top:2px solid #E9E3D6"><td style="padding:5px 0;font-weight:700">רווח תפעולי</td><td style="font-family:monospace;text-align:left;font-weight:700;color:var(--warn)">₪(840)</td></tr>
+          <tr><td style="padding:5px 0;color:var(--muted)">משיכת בעלים</td><td style="font-family:monospace;text-align:left;color:var(--red)">₪(6,000)</td></tr>
+          <tr style="border-top:2px solid var(--gold)"><td style="padding:5px 0;font-weight:700">נשאר בעסק</td><td style="font-family:monospace;text-align:left;font-weight:700;color:var(--red)">₪(6,840)</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <div class="sec">📊 גרפים</div>
+        <div style="font-size:10.5px;font-weight:700;color:var(--muted);margin-bottom:4px">מכירות חודשיות</div>
+        <div class="bar-chart" id="chart-monthly"></div>
+        <div style="font-size:10.5px;font-weight:700;color:var(--muted);margin:10px 0 5px">הוצאות לפי קטגוריה</div>
+        <div id="chart-expenses"></div>
+      </div>
+    </div>
+  </div>
+  <div id="rp-collection" style="display:none">
+    <div class="card"><div class="sec">דוח גבייה — יולי–אוגוסט 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>לקוח</th><th>יוני</th><th>יולי</th><th>אוגוסט</th><th>סה"כ חוב</th><th>רמזור</th></tr></thead><tbody>
+        <tr><td><b>מאפיית הלב</b></td><td style="font-family:monospace">₪1,200</td><td style="font-family:monospace">₪2,000</td><td style="color:var(--muted)">—</td><td style="font-family:monospace;color:var(--red);font-weight:700">₪3,200</td><td>🔴</td></tr>
+        <tr><td><b>מינימרקט שמש</b></td><td style="color:var(--muted)">—</td><td style="font-family:monospace">₪840</td><td style="color:var(--muted)">—</td><td style="font-family:monospace;color:var(--warn);font-weight:700">₪840</td><td>🟡</td></tr>
+        <tr><td><b>חנות ההנאה</b></td><td style="color:var(--ok)">שולם</td><td style="color:var(--ok)">שולם</td><td style="color:var(--ok)">שולם</td><td style="font-family:monospace;color:var(--ok);font-weight:700">₪0</td><td>🟢</td></tr>
+        <tr><td><b>מרכול הכרמל</b></td><td style="color:var(--muted)">—</td><td style="font-family:monospace">₪650</td><td style="color:var(--muted)">—</td><td style="font-family:monospace;color:var(--warn);font-weight:700">₪650</td><td>🟡</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="rp-sales-cl" style="display:none">
+    <div class="card"><div class="sec">מכירות לפי לקוח — יולי 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>לקוח</th><th>יחידות</th><th>חזרות</th><th>% חזרות</th><th>נטו</th></tr></thead><tbody>
+        <tr><td><b>שופרסל שכונתי</b></td><td>272</td><td>8</td><td><span class="bx bx-ok">3%</span></td><td style="font-family:monospace">₪5,840</td></tr>
+        <tr><td><b>חנות ההנאה</b></td><td>104</td><td>0</td><td><span class="bx bx-ok">0%</span></td><td style="font-family:monospace">₪3,640</td></tr>
+        <tr><td><b>סל החסד</b></td><td>136</td><td>12</td><td><span class="bx bx-warn">9%</span></td><td style="font-family:monospace">₪2,960</td></tr>
+        <tr><td><b>קפה הפינה</b></td><td style="color:var(--muted)">דילג</td><td>—</td><td>—</td><td style="font-family:monospace">₪0</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="rp-sales-pr" style="display:none">
+    <div class="card"><div class="sec">מכירות לפי מוצר — 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>מוצר</th><th>מאי</th><th>יוני</th><th>יולי</th><th>חזרות</th><th>%</th></tr></thead><tbody>
+        <tr><td><b>רולדת שוקולד</b></td><td>248</td><td>264</td><td>256</td><td>14</td><td><span class="bx bx-ok">5%</span></td></tr>
+        <tr><td><b>בליצ'ס ריבת חלב</b></td><td>188</td><td>196</td><td>188</td><td>8</td><td><span class="bx bx-ok">4%</span></td></tr>
+        <tr><td><b>כדורי גבינה</b></td><td>368</td><td>312</td><td>288</td><td>48</td><td><span class="bx bx-red">15% ⚠️</span></td></tr>
+        <tr><td><b>עוגת שמנת אפויה</b></td><td>152</td><td>160</td><td>152</td><td>6</td><td><span class="bx bx-ok">4%</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="rp-exp-rep" style="display:none">
+    <div class="card"><div class="sec">דוח הוצאות — יולי 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>קטגוריה</th><th>סכום</th><th>% מהכנסות</th></tr></thead><tbody>
+        <tr><td>חומרי גלם</td><td style="font-family:monospace">₪17,640</td><td>62%</td></tr>
+        <tr><td>משכורות</td><td style="font-family:monospace">₪8,780</td><td>31%</td></tr>
+        <tr><td>ביטוח לאומי</td><td style="font-family:monospace">₪1,840</td><td>6%</td></tr>
+        <tr><td>משלוחים</td><td style="font-family:monospace">₪1,200</td><td>4%</td></tr>
+        <tr><td>הנהלת חשבונות</td><td style="font-family:monospace">₪800</td><td>3%</td></tr>
+        <tr><td>ציוד מטבח</td><td style="font-family:monospace">₪420</td><td>1.5%</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="rp-sup-rep" style="display:none">
+    <div class="card"><div class="sec">דוח ספקים — יולי 2026</div>
+      <div class="tbl-wrap"><table><thead><tr><th>ספק</th><th>חשבונית</th><th>תאריך</th><th>סכום</th><th>שולם</th><th>יתרה</th><th>שיוק ישיר</th></tr></thead><tbody>
+        <tr><td><b>שוקופז</b></td><td style="font-family:monospace">INV-07-088</td><td>04/08</td><td style="font-family:monospace">₪9,912</td><td style="color:var(--muted)">—</td><td style="font-family:monospace;color:var(--warn)">₪9,912</td><td>—</td></tr>
+        <tr><td><b>תנובה</b></td><td style="font-family:monospace">TNV-2407-44</td><td>02/08</td><td style="font-family:monospace">₪7,316</td><td style="font-family:monospace;color:var(--ok)">₪7,316</td><td style="font-family:monospace;color:var(--ok)">₪0</td><td>—</td></tr>
+        <tr><td><b>אמבל</b></td><td style="font-family:monospace">AMB-07-021</td><td>06/08</td><td style="font-family:monospace">₪4,838</td><td style="color:var(--muted)">—</td><td style="font-family:monospace;color:var(--warn)">₪4,838</td><td>—</td></tr>
+        <tr><td><b>טרה</b></td><td style="color:var(--red)">חסרה</td><td style="color:var(--red)">—</td><td style="color:var(--muted)">₪4,800*</td><td>—</td><td style="color:var(--red)">חסרה</td><td><span class="bx bx-blue">שיוק ישיר</span></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="rp-vat" style="display:none">
+    <div class="card"><div class="sec">דוח מע"מ — יולי 2026</div>
+      <table style="width:100%;font-size:12px">
+        <tr><td style="padding:5px 0">הכנסות חייבות מע"מ</td><td style="font-family:monospace;text-align:left">₪22,840</td></tr>
+        <tr><td style="padding:5px 0">מע"מ על הכנסות (18%)</td><td style="font-family:monospace;text-align:left;color:var(--ok)">₪4,111</td></tr>
+        <tr><td style="padding:5px 0">הוצאות מוכרות</td><td style="font-family:monospace;text-align:left">₪18,340</td></tr>
+        <tr><td style="padding:5px 0">מע"מ תשומות</td><td style="font-family:monospace;text-align:left;color:var(--red)">₪3,301</td></tr>
+        <tr style="border-top:2px solid var(--gold)"><td style="padding:5px 0;font-weight:700">מע"מ לתשלום</td><td style="font-family:monospace;text-align:left;font-weight:700">₪810</td></tr>
+      </table>
+      <div style="margin-top:12px;padding:10px;background:#F5F0E8;border-radius:8px;border:1px dashed var(--border)">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:6px">מע"מ מהבית — לרואה חשבון בלבד (לא נכנס לדוח הפנימי)</div>
+        <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+          <input type="number" id="vat-home" value="680" style="border:1.5px solid var(--border);border-radius:7px;padding:4px 8px;font-size:12px;font-family:monospace;width:90px">
+          <span style="font-size:12px">₪</span>
+          <button class="btn btn-out btn-sm" onclick="toast('✅ מע\"מ מהבית נשמר')">שמור</button>
+          <span style="font-size:11px;color:var(--muted)">סה"כ לרו"ח: ₪810+₪680 = <b>₪1,490</b></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEADS -->
+<div class="page" id="page-leads">
+  <div class="tab-sub">
+    <button class="stab on" data-ld="list">לידים</button>
+    <button class="stab" data-ld="templates">תבניות מייל</button>
+  </div>
+  <div id="ld-list">
+    <div class="card"><div class="sec">לידים פעילים</div>
+      <div class="tbl-wrap"><table><thead><tr><th>שם / חנות</th><th>מקור</th><th>תאריך</th><th>סוג</th><th>סטטוס</th><th></th></tr></thead><tbody>
+        <tr><td><b>מאפיית הדר</b></td><td>מייל</td><td>14/08</td><td><span class="pl-fix">קבוע</span></td><td><span class="bx bx-warn">נשלח קטלוג</span></td><td><button class="btn btn-ok btn-sm" onclick="toast('✅ הומר ללקוח!')">הפוך ללקוח</button></td></tr>
+        <tr><td><b>קפה בוקר</b></td><td>מייל</td><td>10/08</td><td><span class="pl-occ">מזדמן</span></td><td><span class="bx bx-gray">ממתין</span></td><td><button class="btn btn-gold btn-sm" onclick="toast('📧 קטלוג מזדמן נשלח!')">שלח קטלוג</button></td></tr>
+        <tr><td><b>כתובת לא מוכרת</b></td><td>AI מייל</td><td>16/08</td><td><span class="bx bx-gray">—</span></td><td><span class="bx bx-red">טיפול ידני</span></td><td><button class="btn btn-out btn-sm">בדקי</button></td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+  <div id="ld-templates" style="display:none">
+    <div class="card"><div class="sec">📧 תבניות מייל</div>
+      <div style="border:1px solid #E9E3D6;border-radius:8px;padding:11px;margin-bottom:8px">
+        <div style="font-weight:700;margin-bottom:4px;font-size:12.5px">קטלוג + מחירון <span class="pl-fix">קבוע</span></div>
+        <div style="font-size:11.5px;color:var(--muted);line-height:1.6">שלום [שם], מצורף קטלוג + מחירון לחנויות קבועות. נשמח לתאם הזמנה 🎂</div>
+        <button class="btn btn-gold btn-sm" style="margin-top:7px" onclick="toast('📧 נשלח!')">שלח</button>
+      </div>
+      <div style="border:1px solid #E9E3D6;border-radius:8px;padding:11px">
+        <div style="font-weight:700;margin-bottom:4px;font-size:12.5px">קטלוג + מחירון <span class="pl-occ">מזדמן</span></div>
+        <div style="font-size:11.5px;color:var(--muted);line-height:1.6">שלום [שם], מצורף קטלוג + מחירון לאירועים. ניתן להזמין עד 72 שעות מראש 🍰</div>
+        <button class="btn btn-gold btn-sm" style="margin-top:7px" onclick="toast('📧 נשלח!')">שלח</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DRIVER -->
+<div class="page" id="page-driver">
+  <div style="background:var(--ink);color:var(--gold);text-align:center;padding:7px;border-radius:8px;margin-bottom:11px;font-size:12px;font-weight:700">📱 מסך משלוחן — טאבלט · שבוע 17/08/2026</div>
+  <div class="kpis">
+    <div class="kpi"><div class="num" id="drv-total">—</div><div class="lbl">תעודות היום</div></div>
+    <div class="kpi"><div class="num warn" id="drv-ret">0</div><div class="lbl">חזרות</div></div>
+    <div class="kpi"><div class="num ok" id="drv-done">0</div><div class="lbl">סופקו</div></div>
+  </div>
+  <div id="drv-empty" class="card empty-st"><div class="ico">🚚</div><h3 style="font-size:13px">אין שבוע פתוח</h3><p style="font-size:12px">פתחי שבוע חדש בטאב הזמנות</p></div>
+  <div id="drv-list" style="display:none"></div>
+</div>
+
+<!-- MODALS -->
+<div class="ov" id="ov-order"><div class="modal">
+  <div class="mhead"><h3 id="order-title">הזמנה</h3><button class="mclose" onclick="closeOv('ov-order')">×</button></div>
+  <div id="order-body"></div>
+  <div class="acts" style="margin-top:9px"><button class="btn btn-gold" id="btn-save-order">💾 שמור</button><button class="btn btn-out" onclick="closeOv('ov-order')">ביטול</button></div>
+</div></div>
+<div class="ov" id="ov-client"><div class="modal">
+  <div class="mhead"><h3 id="cm-title">לקוח חדש</h3><button class="mclose" onclick="closeOv('ov-client')">×</button></div>
+  <div class="row2"><div class="field"><label>שם חנות</label><input id="nc-store"></div><div class="field"><label>שם לחשבונית</label><input id="nc-inv"></div></div>
+  <div class="row3">
+    <div class="field"><label>עיר</label><select id="nc-city"><option>בני ברק</option><option>ירושלים</option><option>תל אביב</option><option>רחובות</option><option>פתח תקווה</option></select></div>
+    <div class="field"><label>כתובת</label><input id="nc-addr"></div>
+    <div class="field"><label>טלפון</label><input id="nc-phone"></div>
+  </div>
+  <div class="row3">
+    <div class="field"><label>סוג לקוח</label><select id="nc-type"><option>קבוע</option><option>מזדמן</option><option>פרטי</option></select></div>
+    <div class="field"><label>מע"מ</label><select id="nc-vat"><option value="yes">עם מע"מ</option><option value="no">ללא</option></select></div>
+    <div class="field"><label>אמצעי תשלום</label><select id="nc-pay"><option>העברה בנקאית</option><option>צ'ק</option><option>Bit</option></select></div>
+  </div>
+  <div class="row2">
+    <div class="field"><label>תנאי תשלום</label><select id="nc-terms"><option>שוטף</option><option>שוטף+30</option><option>שוטף+60</option></select></div>
+    <div class="field"><label>ללא חשבונית</label><select id="nc-noinv"><option value="no">רגיל</option><option value="yes">PDF בלבד</option></select></div>
+  </div>
+  <div style="font-size:12px;font-weight:700;margin:7px 0 5px">הזמנה קבועה שבועית</div>
+  <div id="nc-prods"></div>
+  <div class="acts" style="margin-top:9px"><button class="btn btn-gold" id="btn-save-client">שמור לקוח</button><button class="btn btn-out" onclick="closeOv('ov-client')">ביטול</button></div>
+</div></div>
+<div class="ov" id="ov-pay"><div class="modal" style="max-width:360px">
+  <div class="mhead"><h3>רישום תשלום</h3><button class="mclose" onclick="closeOv('ov-pay')">×</button></div>
+  <div class="field"><label>לקוח</label><select id="pay-client" style="width:100%;border:1.5px solid var(--border);border-radius:7px;padding:5px 8px;font-size:12px;font-family:inherit"></select></div>
+  <div class="row2"><div class="field"><label>סכום (₪)</label><input id="pay-amount" type="number"></div><div class="field"><label>אמצעי</label><select id="pay-method" style="width:100%;border:1.5px solid var(--border);border-radius:7px;padding:5px 8px;font-size:12px;font-family:inherit"><option>העברה בנקאית</option><option>צ'ק</option><option>Bit</option></select></div></div>
+  <div class="row2"><div class="field"><label>תאריך</label><input id="pay-date" type="date"></div><div class="field"><label>אסמכתה</label><input id="pay-note"></div></div>
+  <button class="btn btn-ok" id="btn-save-pay" style="width:100%;margin-top:3px">✅ אשר תשלום</button>
+</div></div>
+<div class="ov" id="ov-confirm"><div class="modal" style="max-width:360px;text-align:center">
+  <div style="font-size:38px;margin-bottom:7px">✅</div>
+  <div style="font-size:15px;font-weight:700;margin-bottom:5px">הזמנות אושרו!</div>
+  <div id="confirm-txt" style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.7"></div>
+  <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap">
+    <button class="btn btn-gold" onclick="closeOv('ov-confirm');navTo('del')">📄 תעודות</button>
+    <button class="btn btn-out" onclick="closeOv('ov-confirm');navTo('inv')">🧾 חשבוניות</button>
+    <button class="btn btn-out" onclick="closeOv('ov-confirm')">סגור</button>
+  </div>
+</div></div>
 <div class="toast" id="toast"></div>
-<footer>הדמיה בלבד · <b>tehilauto.com</b> · האוטומציה שמאחורי ההצלחה</footer>
-
+<footer class="brand-footer"><div class="bf-line"></div><div class="bf-text">ההדמיה נוצרה על ידי <b>תהילה</b> · האוטומציה שמאחורי ההצלחה</div><div class="bf-site">tehilauto.com</div></footer>
 <script>
-// ===== DATA =====
-const PRODS = [
-  {id:1,name:'רולדת שוקולד',price:38},
-  {id:2,name:'בליצה רבת חלב',price:36},
-  {id:3,name:'עוגת שמנת אפויה',price:39},
-  {id:4,name:'כדורי גבינה',price:20},
-  {id:5,name:'עוגת גבינה אפויה',price:45},
-  {id:6,name:'טארט פירות',price:42},
+const PRODS=[
+  {id:1,name:'רולדת שוקולד',pF:38,pO:44},
+  {id:2,name:"בליצ'ס ריבת חלב",pF:36,pO:42},
+  {id:3,name:'עוגת שמנת אפויה',pF:39,pO:46},
+  {id:4,name:'כדורי גבינה',pF:20,pO:26},
+  {id:5,name:'עוגת גבינה אפויה',pF:45,pO:52},
+  {id:6,name:'מיני רולדה',pF:18,pO:22},
+  {id:7,name:'עוגת שמנת פירורים',pF:34,pO:40},
+  {id:8,name:'הלדה ריבת חלב',pF:32,pO:38},
+];
+function pprice(pid,t){const p=PRODS.find(x=>x.id==pid);return p?(t==='מזדמן'?p.pO:p.pF):0;}
+function pname(pid){return PRODS.find(x=>x.id==pid)?.name||'';}
+
+let clients=[
+  {id:1,store:'חנות ההנאה',inv:'א. כהן מסחר',city:'בני ברק',addr:'הרב עמרם 12',phone:'03-5551001',type:'קבוע',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:0,order:[{pid:1,qty:12},{pid:2,qty:8},{pid:3,qty:6}]},
+  {id:2,store:'מינימרקט שמש',inv:'מינימרקט שמש',city:'ירושלים',addr:'אגריפס 21',phone:'02-5552002',type:'קבוע',vat:false,pay:"צ'ק",terms:'שוטף',debt:840,order:[{pid:1,qty:6},{pid:4,qty:10}]},
+  {id:3,store:'מאפיית הלב',inv:'ד. גולדברג בע"מ',city:'בני ברק',addr:"ז'בוטינסקי 34",phone:'03-5553003',type:'קבוע',vat:true,pay:'Bit',terms:'שוטף+30',debt:3200,order:[{pid:2,qty:20},{pid:3,qty:14}]},
+  {id:4,store:'קפה הפינה',inv:'קפה הפינה בע"מ',city:'תל אביב',addr:'דיזנגוף 80',phone:'03-5554004',type:'קבוע',vat:true,pay:'העברה בנקאית',terms:'שוטף',debt:0,skip:true,order:[{pid:1,qty:8},{pid:4,qty:12}]},
+  {id:5,store:'סל החסד',inv:'סל החסד אגודה',city:'בני ברק',addr:'כיכר השבת 5',phone:'03-5555005',type:'קבוע',vat:false,pay:"צ'ק",terms:'שוטף+60',debt:1290,order:[{pid:4,qty:24},{pid:3,qty:10}]},
+  {id:6,store:'קפה רינה',inv:'קפה רינה',city:'ירושלים',addr:'יפו 88',phone:'02-5556006',type:'קבוע',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:1,qty:10},{pid:2,qty:6}]},
+  {id:7,store:'מרכול הכרמל',inv:'מ. לוי מסחר',city:'תל אביב',addr:'הכרמל 14',phone:'03-5557007',type:'קבוע',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:650,order:[{pid:5,qty:8},{pid:1,qty:12}]},
+  {id:8,store:'מאפיית פסגה',inv:'מאפיית פסגה',city:'ירושלים',addr:"קינג ג'ורג 22",phone:'02-5558008',type:'קבוע',vat:true,pay:"צ'ק",terms:'שוטף+30',debt:0,order:[{pid:2,qty:16},{pid:6,qty:8}]},
+  {id:9,store:'מכולת שלמה',inv:'ש. ביטון',city:'רחובות',addr:'הרצל 5',phone:'08-5559009',type:'קבוע',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:4,qty:20},{pid:3,qty:8}]},
+  {id:10,store:'קנדי סויד',inv:'קנדי סויד בע"מ',city:'בני ברק',addr:'רבי עקיבא 40',phone:'03-5550010',type:'קבוע',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:0,order:[{pid:1,qty:15},{pid:5,qty:5}]},
+  {id:11,store:'בייגלה ברק',inv:'א. שפירא',city:'בני ברק',addr:'הגר 8',phone:'03-5551111',type:'קבוע',vat:true,pay:'העברה בנקאית',terms:'שוטף',debt:0,order:[{pid:2,qty:12},{pid:4,qty:8}]},
+  {id:12,store:'מאפיית אור',inv:'מאפיית אור',city:'רחובות',addr:'ויצמן 3',phone:'08-5552222',type:'קבוע',vat:false,pay:"צ'ק",terms:'שוטף+30',debt:0,order:[{pid:6,qty:10},{pid:3,qty:6}]},
+  {id:13,store:'קיוסק הדסה',inv:'ר. בן דוד',city:'ירושלים',addr:'הדסה 9',phone:'02-5553333',type:'קבוע',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:1,qty:8},{pid:3,qty:4}]},
+  {id:14,store:'שופרסל שכונתי',inv:'שופרסל שרשרת',city:'פתח תקווה',addr:'מנחם בגין 3',phone:'03-5554444',type:'קבוע',vat:true,pay:'העברה בנקאית',terms:'שוטף+60',debt:0,order:[{pid:2,qty:30},{pid:4,qty:20},{pid:1,qty:22}]},
+  {id:15,store:'מאפיית גורמה',inv:'מאפיית גורמה בע"מ',city:'תל אביב',addr:'רוטשילד 44',phone:'03-5555555',type:'מזדמן',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:480,order:[{pid:5,qty:10},{pid:6,qty:8}]},
+];
+let expenses=[
+  {id:1,date:'10/08',name:'שוקופז — חומרי גלם',cat:'חומרי גלם',amount:8400,vat:true,pay:'העברה',file:'INV-2408-034.pdf'},
+  {id:2,date:'10/08',name:'תנובה — מוצרי חלב',cat:'חומרי גלם',amount:6200,vat:true,pay:'הוראת קבע',file:'TNV-2408-012.pdf'},
+  {id:3,date:'01/08',name:'ביטוח לאומי',cat:'ביטוח לאומי',amount:1840,vat:false,pay:'הוראת קבע',file:''},
+  {id:4,date:'01/08',name:'משכורת — שרית לוי',cat:'משכורות',amount:4200,vat:false,pay:'העברה',file:''},
+  {id:5,date:'01/08',name:'משכורת — יוסף אברהם',cat:'משכורות',amount:4580,vat:false,pay:'העברה',file:''},
+  {id:6,date:'28/07',name:'הנהלת חשבונות יולי',cat:'הנהלת חשבונות',amount:800,vat:true,pay:'העברה',file:''},
+  {id:7,date:'15/08',name:'דלק — משלוחן',cat:'משלוחים',amount:380,vat:true,pay:'כרטיס',file:''},
+  {id:8,date:'05/08',name:'תבניות אפייה',cat:'ציוד מטבח',amount:420,vat:true,pay:'כרטיס',file:''},
 ];
 
-let clients = [
-  {id:1,store:'חנות ההנאה',inv:'א. כהן מסחר',city:'בני ברק',addr:'הרב עמרם 12',phone:'03-5551001',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:0,order:[{pid:1,qty:12},{pid:2,qty:8},{pid:3,qty:6}]},
-  {id:2,store:'מינימרקט שמש',inv:'מינימרקט שמש',city:'ירושלים',addr:'אגריפס 21',phone:'02-5552002',vat:false,pay:"צ'ק",terms:'שוטף',debt:840,order:[{pid:1,qty:6},{pid:4,qty:10}]},
-  {id:3,store:'מאפיית הלב',inv:'ד. גולדברג בע"מ',city:'בני ברק',addr:"ז'בוטינסקי 34",phone:'03-5553003',vat:true,pay:'Bit',terms:'שוטף+30',debt:2100,order:[{pid:2,qty:20},{pid:3,qty:14}]},
-  {id:4,store:'קפה הפינה',inv:'קפה הפינה',city:'תל אביב',addr:'דיזנגוף 80',phone:'03-5554004',vat:true,pay:'העברה בנקאית',terms:'שוטף',debt:0,skip:true,skipUntil:'05/08',order:[{pid:1,qty:8},{pid:2,qty:4}]},
-  {id:5,store:'סופר טוב',inv:'סל החסד אגודה',city:'בני ברק',addr:'כיכר השבת 5',phone:'03-5555005',vat:true,pay:"צ'ק",terms:'שוטף+60',debt:1290,order:[{pid:4,qty:24},{pid:3,qty:10}]},
-  {id:6,store:'קפה רינה',inv:'קפה רינה',city:'ירושלים',addr:'יפו 88',phone:'02-5556006',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:1,qty:10},{pid:2,qty:6}]},
-  {id:7,store:'מרכול הכרמל',inv:'מ. לוי מסחר',city:'תל אביב',addr:'הכרמל 14',phone:'03-5557007',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:650,order:[{pid:5,qty:8},{pid:1,qty:12}]},
-  {id:8,store:'מאפיית פסגה',inv:'מאפיית פסגה',city:'ירושלים',addr:"קינג ג'ורג 22",phone:'02-5558008',vat:true,pay:"צ'ק",terms:'שוטף+30',debt:0,order:[{pid:2,qty:16},{pid:6,qty:6}]},
-  {id:9,store:'מכולת שלמה',inv:'ש. ביטון',city:'רחובות',addr:'הרצל 5',phone:'08-5559009',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:4,qty:20},{pid:3,qty:8}]},
-  {id:10,store:'קנדי סויד',inv:'קנדי סויד בע"מ',city:'בני ברק',addr:'רבי עקיבא 40',phone:'03-5550010',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:0,order:[{pid:1,qty:15},{pid:5,qty:5}]},
-  {id:11,store:'בייגלה ברק',inv:'א. שפירא',city:'בני ברק',addr:'הגר 8',phone:'03-5551111',vat:true,pay:'העברה בנקאית',terms:'שוטף',debt:0,order:[{pid:2,qty:12},{pid:4,qty:8}]},
-  {id:12,store:'מאפיית אור',inv:'מאפיית אור',city:'רחובות',addr:'ויצמן 3',phone:'08-5552222',vat:false,pay:"צ'ק",terms:'שוטף+30',debt:0,order:[{pid:6,qty:10},{pid:3,qty:6}]},
-  {id:13,store:'קיוסק הדסה',inv:'ר. בן דוד',city:'ירושלים',addr:'הדסה 9',phone:'02-5553333',vat:false,pay:'Bit',terms:'שוטף',debt:0,order:[{pid:1,qty:8},{pid:3,qty:4}]},
-  {id:14,store:'שופרסל שכונתי',inv:'שופרסל שרשרת',city:'פתח תקווה',addr:'מנחם בגין 3',phone:'03-5554444',vat:true,pay:'העברה בנקאית',terms:'שוטף+60',debt:0,order:[{pid:2,qty:30},{pid:4,qty:20},{pid:1,qty:18}]},
-  {id:15,store:'מאפיית גורמה',inv:'מאפיית גורמה בע"מ',city:'תל אביב',addr:'רוטשילד 44',phone:'03-5555555',vat:true,pay:'העברה בנקאית',terms:'שוטף+30',debt:480,order:[{pid:5,qty:10},{pid:6,qty:8}]},
-];
+let weekOpen=false,weekDate='',weekOrders={},editOrderCid=null,editClientId=null;
+let delCity='all',delSearch='',delSort='city';
 
-let weekOpen = false, weekDate = '';
-let weekOrders = {};
-let editOrderCid = null, editClientId = null;
-let delCity = 'all', delSearch = '', delSort = 'city';
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2400);}
+function openOv(id){document.getElementById(id).classList.add('on');}
+function closeOv(id){document.getElementById(id).classList.remove('on');}
+function q(id){return document.getElementById(id);}
+function nxtId(){return clients.length?Math.max(...clients.map(c=>c.id))+1:1;}
 
-// ===== UTILS =====
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('on');
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('on'), 2300);
+function navTo(tab){
+  document.querySelectorAll('.ntab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  const btn=document.querySelector(`.ntab[data-tab="${tab}"]`);
+  const pg=document.getElementById('page-'+tab);
+  if(btn)btn.classList.add('on');
+  if(pg)pg.classList.add('on');
+  if(tab==='clients')renderClients();
+  if(tab==='del')renderDelivery();
+  if(tab==='inv')renderInvoices();
+  if(tab==='pay')renderPayments();
+  if(tab==='expenses')renderExpenses();
+  if(tab==='driver')renderDriver();
+  if(tab==='reports'){setTimeout(renderCharts,50);}
 }
-function openOv(id) { document.getElementById(id).classList.add('on'); }
-function closeOv(id) { document.getElementById(id).classList.remove('on'); }
-function q(id) { return document.getElementById(id); }
-function pname(pid) { return PRODS.find(p => p.id == pid)?.name || ''; }
-function pprice(pid) { return PRODS.find(p => p.id == pid)?.price || 0; }
-function nextId() { return clients.length ? Math.max(...clients.map(c => c.id)) + 1 : 1; }
+document.querySelectorAll('.ntab[data-tab]').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.tab)));
 
-function updateDashKpis() {
-  q('kpi-tot').textContent = clients.length;
-  q('kpi-debts').textContent = clients.filter(c => c.debt > 0).length;
-  q('kpi-red').textContent = clients.filter(c => c.debt >= 2000).length;
-  if (!weekOpen) { q('kpi-units').textContent = '—'; return; }
-  const u = clients.reduce((s, c) => {
-    const wo = weekOrders[c.id];
-    if (wo && wo.skip) return s;
-    return s + (wo ? wo.items : c.order).reduce((a, i) => a + i.qty, 0);
-  }, 0);
-  q('kpi-units').textContent = u;
-  // prod summary
-  const sums = {};
-  clients.forEach(c => {
-    const wo = weekOrders[c.id];
-    if (wo && wo.skip) return;
-    (wo ? wo.items : c.order).forEach(i => { sums[i.pid] = (sums[i.pid] || 0) + i.qty; });
-  });
-  q('dash-prod').innerHTML = Object.entries(sums).map(([pid, qty]) =>
-    `<span style="display:inline-block;background:#fff;border:1px solid #E9E3D6;border-radius:8px;padding:4px 12px;margin:3px;font-size:13px"><b>${qty}</b> <span style="color:var(--muted)">${pname(pid)}</span></span>`
-  ).join('');
-}
-
-// ===== NAVIGATION =====
-const TABS = {
-  'tab-dash': 'page-dash',
-  'tab-week': 'page-week',
-  'tab-del': 'page-del',
-  'tab-inv': 'page-inv',
-  'tab-pay': 'page-pay',
-  'tab-clients': 'page-clients',
-};
-Object.keys(TABS).forEach(tabId => {
-  q(tabId).addEventListener('click', () => {
-    document.querySelectorAll('.ntab').forEach(t => t.classList.remove('on'));
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
-    q(tabId).classList.add('on');
-    q(TABS[tabId]).classList.add('on');
-    const page = TABS[tabId];
-    if (page === 'page-clients') renderClients();
-    if (page === 'page-del') renderDelivery();
-    if (page === 'page-inv') renderInvoices();
-    if (page === 'page-pay') renderPayments();
-  });
-});
-
-// close overlays on backdrop click
-document.querySelectorAll('.ov').forEach(ov => {
-  ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('on'); });
-});
-q('close-order').addEventListener('click', () => closeOv('ov-order'));
-q('cancel-order').addEventListener('click', () => closeOv('ov-order'));
-q('close-client').addEventListener('click', () => closeOv('ov-client'));
-q('cancel-client').addEventListener('click', () => closeOv('ov-client'));
-q('close-pay').addEventListener('click', () => closeOv('ov-pay'));
-q('confirm-close').addEventListener('click', () => closeOv('ov-confirm'));
-q('confirm-to-del').addEventListener('click', () => { closeOv('ov-confirm'); q('tab-del').click(); });
-q('confirm-to-inv').addEventListener('click', () => { closeOv('ov-confirm'); q('tab-inv').click(); });
-
-// ===== WEEK =====
-q('btn-open-week').addEventListener('click', openWeek);
-q('btn-confirm-orders').addEventListener('click', confirmOrders);
-
-function openWeek() {
-  const now = new Date();
-  weekDate = now.toLocaleDateString('he-IL', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  weekOpen = true;
-  q('week-lbl').textContent = 'שבוע ' + weekDate;
-  clients.forEach(c => {
-    if (!weekOrders[c.id])
-      weekOrders[c.id] = { items: c.order.map(o => ({ ...o, ct: 'קבועה' })), skip: c.skip || false, returns: 0 };
-  });
-  q('week-empty').style.display = 'none';
-  q('week-content').style.display = 'block';
-  renderWeek();
-  updateDashKpis();
-  toast('✅ שבוע חדש נפתח!');
-}
-
-function renderWeek() {
-  const tbody = q('week-body');
-  tbody.innerHTML = '';
-  clients.forEach(c => {
-    const wo = weekOrders[c.id] || { items: c.order.map(o => ({ ...o, ct: 'קבועה' })), skip: false, returns: 0 };
-    const totalU = wo.skip ? 0 : wo.items.reduce((s, i) => s + i.qty, 0);
-    const totalP = wo.skip ? 0 : wo.items.reduce((s, i) => s + i.qty * pprice(i.pid), 0);
-    const changed = !wo.skip && wo.items.some(i => i.ct && i.ct !== 'קבועה');
-    const statusHtml = wo.skip
-      ? `<span class="bx bx-gray">מדלג${wo.skipUntil ? ' עד ' + wo.skipUntil : ''}</span>`
-      : changed ? '<span class="bx bx-warn">שונה</span>' : '<span class="bx bx-ok">קבועה</span>';
-    const sumText = wo.skip ? '—' : wo.items.map(i => `${pname(i.pid)} ×${i.qty}`).join(' · ');
-    const tr = document.createElement('tr');
-    if (wo.skip) tr.classList.add('week-skip');
-    tr.innerHTML = `
-      <td><b>${c.store}</b></td>
-      <td>${c.city}</td>
-      <td style="max-width:240px;font-size:12px;color:var(--muted)">${sumText}</td>
-      <td><button class="btn btn-out btn-sm ord-btn" style="font-family:'IBM Plex Mono',monospace;font-weight:700" data-cid="${c.id}">${wo.skip ? '—' : totalU + ' יח׳ · ₪' + totalP}</button></td>
-      <td>${statusHtml}</td>
-      <td><button class="btn btn-out btn-sm skip-btn" data-cid="${c.id}">${wo.skip ? 'בטל דילוג' : 'דלג השבוע'}</button></td>`;
-    tbody.appendChild(tr);
-  });
-
-  // bind order buttons
-  tbody.querySelectorAll('.ord-btn').forEach(btn => {
-    btn.addEventListener('click', () => openOrderModal(+btn.dataset.cid));
-  });
-  tbody.querySelectorAll('.skip-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const cid = +btn.dataset.cid;
-      if (!weekOrders[cid]) weekOrders[cid] = { items: clients.find(c => c.id === cid).order.map(o => ({ ...o, ct: 'קבועה' })), skip: false, returns: 0 };
-      weekOrders[cid].skip = !weekOrders[cid].skip;
-      renderWeek(); updateDashKpis();
+function initSubTabs(attr){
+  document.querySelectorAll(`.stab[data-${attr}]`).forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const par=btn.closest('.page')||document.body;
+      par.querySelectorAll(`.stab[data-${attr}]`).forEach(b=>b.classList.remove('on'));
+      btn.classList.add('on');
+      document.querySelectorAll(`[id^="${attr}-"]`).forEach(el=>el.style.display='none');
+      const tgt=document.getElementById(attr+'-'+btn.dataset[attr]);
+      if(tgt){tgt.style.display='';if(attr==='rp')setTimeout(renderCharts,50);}
     });
   });
+}
+['inv','pay','sup','sc','rec','rp','cl','ld','ps'].forEach(initSubTabs);
 
-  // kpis
-  const active = clients.filter(c => !(weekOrders[c.id] && weekOrders[c.id].skip));
-  const totalU = active.reduce((s, c) => { const wo = weekOrders[c.id]; return s + (wo ? wo.items : c.order).reduce((a, i) => a + i.qty, 0); }, 0);
-  q('week-kpis').innerHTML = `
-    <div class="kpi"><div class="num">${clients.length}</div><div class="lbl">סה"כ לקוחות</div></div>
+document.querySelectorAll('.ov').forEach(ov=>ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('on');}));
+
+function updateDashKpis(){
+  q('kpi-clients').textContent=clients.filter(c=>!c.skip).length;
+  q('kpi-debts').textContent=clients.filter(c=>c.debt>0).length;
+  q('kpi-red').textContent=clients.filter(c=>c.debt>=2000).length;
+  if(!weekOpen){q('kpi-units').textContent='—';return;}
+  const u=clients.reduce((s,c)=>{const wo=weekOrders[c.id];if(wo&&wo.skip)return s;return s+(wo?wo.items:c.order).reduce((a,i)=>a+i.qty,0);},0);
+  q('kpi-units').textContent=u;
+  const sums={};
+  clients.forEach(c=>{const wo=weekOrders[c.id];if(wo&&wo.skip)return;(wo?wo.items:c.order).forEach(i=>{sums[i.pid]=(sums[i.pid]||0)+i.qty;});});
+  q('dash-prod').innerHTML=Object.entries(sums).map(([pid,qty])=>`<span style="display:inline-block;background:#fff;border:1px solid #E9E3D6;border-radius:6px;padding:3px 10px;margin:2px;font-size:12px"><b>${qty}</b> <span style="color:var(--muted)">${pname(pid)}</span></span>`).join('');
+}
+
+q('btn-open-week').addEventListener('click',()=>{
+  const now=new Date();weekDate=now.toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit',year:'numeric'});
+  weekOpen=true;q('week-lbl').textContent='שבוע '+weekDate;
+  clients.forEach(c=>{if(!weekOrders[c.id])weekOrders[c.id]={items:c.order.map(o=>({...o,ct:'קבועה'})),skip:c.skip||false,returns:0};});
+  q('week-empty').style.display='none';q('week-content').style.display='block';
+  renderWeek();updateDashKpis();toast('✅ שבוע חדש נפתח!');
+});
+q('btn-confirm-orders').addEventListener('click',()=>{
+  if(!weekOpen){toast('⚠️ פתחי שבוע קודם');return;}
+  const active=clients.filter(c=>!(weekOrders[c.id]&&weekOrders[c.id].skip));
+  const total=active.reduce((s,c)=>{const wo=weekOrders[c.id];return s+(wo?wo.items:c.order).reduce((a,i)=>a+i.qty,0);},0);
+  q('confirm-txt').innerHTML=`נוצרו <b>${active.length} תעודות</b><br>סה"כ <b>${total} יחידות</b>`;
+  openOv('ov-confirm');renderDelivery();renderInvoices();
+});
+
+function renderWeek(){
+  const tb=q('week-body');tb.innerHTML='';
+  clients.forEach(c=>{
+    const wo=weekOrders[c.id]||{items:c.order.map(o=>({...o,ct:'קבועה'})),skip:false,returns:0};
+    const plT=c.type==='מזדמן'?'מזדמן':'קבוע';
+    const tU=wo.skip?0:wo.items.reduce((s,i)=>s+i.qty,0);
+    const tP=wo.skip?0:wo.items.reduce((s,i)=>s+i.qty*pprice(i.pid,plT),0);
+    const changed=!wo.skip&&wo.items.some(i=>i.ct&&i.ct!=='קבועה');
+    const st=wo.skip?'<span class="bx bx-gray">מדלג</span>':changed?'<span class="bx bx-warn">שונה</span>':'<span class="bx bx-ok">קבועה</span>';
+    const sm=wo.skip?'—':wo.items.map(i=>`${pname(i.pid)}×${i.qty}`).join(' · ');
+    const plB=plT==='מזדמן'?'<span class="pl-occ">מזדמן</span>':'<span class="pl-fix">קבוע</span>';
+    const tr=document.createElement('tr');
+    if(wo.skip)tr.classList.add('skip-row');
+    tr.innerHTML=`<td><b>${c.store}</b></td><td>${c.city}</td><td>${plB}</td>
+      <td style="max-width:190px;font-size:11px;color:var(--muted)">${sm}</td>
+      <td><button class="btn btn-out btn-sm ord-btn" style="font-family:monospace;font-weight:700" data-cid="${c.id}">${wo.skip?'—':tU+' יח׳·₪'+tP}</button></td>
+      <td>${st}</td>
+      <td><button class="btn btn-out btn-sm skip-btn" data-cid="${c.id}">${wo.skip?'בטל':'דלג'}</button></td>`;
+    tb.appendChild(tr);
+  });
+  tb.querySelectorAll('.ord-btn').forEach(b=>b.addEventListener('click',()=>openOrderModal(+b.dataset.cid)));
+  tb.querySelectorAll('.skip-btn').forEach(b=>b.addEventListener('click',()=>{
+    const cid=+b.dataset.cid;
+    if(!weekOrders[cid])weekOrders[cid]={items:clients.find(c=>c.id===cid).order.map(o=>({...o,ct:'קבועה'})),skip:false,returns:0};
+    weekOrders[cid].skip=!weekOrders[cid].skip;renderWeek();updateDashKpis();
+  }));
+  const active=clients.filter(c=>!(weekOrders[c.id]&&weekOrders[c.id].skip));
+  const tU=active.reduce((s,c)=>{const wo=weekOrders[c.id];return s+(wo?wo.items:c.order).reduce((a,i)=>a+i.qty,0);},0);
+  q('week-kpis').innerHTML=`
+    <div class="kpi"><div class="num">${clients.length}</div><div class="lbl">לקוחות</div></div>
     <div class="kpi"><div class="num ok">${active.length}</div><div class="lbl">פעילים</div></div>
-    <div class="kpi"><div class="num warn">${clients.filter(c => weekOrders[c.id] && weekOrders[c.id].skip).length}</div><div class="lbl">מדלגים</div></div>
-    <div class="kpi"><div class="num">${totalU}</div><div class="lbl">יחידות</div></div>`;
+    <div class="kpi"><div class="num warn">${clients.filter(c=>weekOrders[c.id]&&weekOrders[c.id].skip).length}</div><div class="lbl">מדלגים</div></div>
+    <div class="kpi"><div class="num">${tU}</div><div class="lbl">יחידות</div></div>`;
 }
 
-function confirmOrders() {
-  if (!weekOpen) { toast('⚠️ פתחי שבוע חדש קודם'); return; }
-  const active = clients.filter(c => !(weekOrders[c.id] && weekOrders[c.id].skip));
-  const total = active.reduce((s, c) => { const wo = weekOrders[c.id]; return s + (wo ? wo.items : c.order).reduce((a, i) => a + i.qty, 0); }, 0);
-  q('confirm-txt').innerHTML = `נוצרו <b>${active.length} תעודות משלוח</b> ו-<b>${active.length} חשבוניות</b><br>סה"כ <b>${total} יחידות</b> לשבוע ${weekDate}`;
-  openOv('ov-confirm');
-  renderDelivery(); renderInvoices();
-}
-
-// ===== ORDER MODAL =====
-function openOrderModal(cid) {
-  editOrderCid = cid;
-  const c = clients.find(c => c.id === cid);
-  const wo = weekOrders[cid] || { items: c.order.map(o => ({ ...o, ct: 'קבועה' })), skip: false, returns: 0 };
-  q('order-title').textContent = `הזמנת ${c.store} — ${weekDate}`;
-  const body = q('order-body');
-  body.innerHTML = '';
-  const itemMap = {};
-  wo.items.forEach(i => { itemMap[i.pid] = { qty: i.qty, ct: i.ct || 'קבועה' }; });
-  PRODS.forEach(p => {
-    const item = itemMap[p.id] || { qty: 0, ct: 'קבועה' };
-    const div = document.createElement('div');
-    div.className = 'oi';
-    div.innerHTML = `
-      <div class="name">${p.name} <span class="price">₪${p.price}</span></div>
-      <div class="qc">
-        <button class="qbtn" data-pid="${p.id}" data-d="-1">−</button>
-        <div class="qnum" id="oq-${p.id}">${item.qty}</div>
-        <button class="qbtn" data-pid="${p.id}" data-d="1">+</button>
-      </div>
+function openOrderModal(cid){
+  editOrderCid=cid;const c=clients.find(c=>c.id===cid);
+  const wo=weekOrders[cid]||{items:c.order.map(o=>({...o,ct:'קבועה'})),skip:false,returns:0};
+  const plT=c.type==='מזדמן'?'מזדמן':'קבוע';
+  q('order-title').textContent=`${c.store} — ${weekDate}`;
+  const body=q('order-body');body.innerHTML=`<div style="font-size:11px;color:var(--muted);margin-bottom:7px">מחירון: <b>${plT}</b></div>`;
+  const imap={};wo.items.forEach(i=>{imap[i.pid]={qty:i.qty,ct:i.ct||'קבועה'};});
+  PRODS.forEach(p=>{
+    const item=imap[p.id]||{qty:0,ct:'קבועה'};const pr=pprice(p.id,plT);
+    const div=document.createElement('div');div.className='oi';
+    div.innerHTML=`<div class="nm">${p.name} <span class="pr">₪${pr}</span></div>
+      <div class="qc"><button class="qbtn" data-pid="${p.id}" data-d="-1">−</button><div class="qnum" id="oq-${p.id}">${item.qty}</div><button class="qbtn" data-pid="${p.id}" data-d="1">+</button></div>
       <select class="ct-sel" id="oct-${p.id}">
         <option value="קבועה"${item.ct==='קבועה'?' selected':''}>קבועה</option>
         <option value="לשבוע בלבד"${item.ct==='לשבוע בלבד'?' selected':''}>לשבוע בלבד</option>
@@ -500,279 +914,296 @@ function openOrderModal(cid) {
       </select>`;
     body.appendChild(div);
   });
-  // returns row
-  const ret = document.createElement('div');
-  ret.style.cssText = 'display:flex;align-items:center;gap:10px;background:#FBF9F4;border:1px solid #E9E3D6;border-radius:9px;padding:8px 12px;margin-top:10px';
-  ret.innerHTML = `<div style="flex:1;font-size:13px;font-weight:600">↩ חזרות השבוע</div>
-    <div class="qc">
-      <button class="qbtn" data-ret="-1">−</button>
-      <div class="qnum" id="oret">${wo.returns || 0}</div>
-      <button class="qbtn" data-ret="1">+</button>
-    </div>`;
+  const ret=document.createElement('div');ret.style.cssText='display:flex;align-items:center;gap:7px;padding:5px 9px;border:1px solid #E9E3D6;border-radius:7px;margin-top:6px;background:#F5F0E8';
+  ret.innerHTML=`<div style="flex:1;font-size:12px;font-weight:600">↩ חזרות</div><div class="qc"><button class="qbtn" data-ret="-1">−</button><div class="qnum" id="oret">${wo.returns||0}</div><button class="qbtn" data-ret="1">+</button></div>`;
   body.appendChild(ret);
-
-  // bind qty buttons
-  body.querySelectorAll('.qbtn[data-pid]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const el = q('oq-' + btn.dataset.pid);
-      let v = +el.textContent + +btn.dataset.d;
-      if (v < 0) v = 0;
-      el.textContent = v;
-    });
-  });
-  body.querySelectorAll('.qbtn[data-ret]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const el = q('oret');
-      let v = +el.textContent + +btn.dataset.ret;
-      if (v < 0) v = 0;
-      el.textContent = v;
-    });
-  });
+  body.querySelectorAll('.qbtn[data-pid]').forEach(b=>b.addEventListener('click',()=>{const el=q('oq-'+b.dataset.pid);let v=+el.textContent+ +b.dataset.d;if(v<0)v=0;el.textContent=v;}));
+  body.querySelectorAll('.qbtn[data-ret]').forEach(b=>b.addEventListener('click',()=>{const el=q('oret');let v=+el.textContent+ +b.dataset.ret;if(v<0)v=0;el.textContent=v;}));
   openOv('ov-order');
 }
-
-q('btn-save-order').addEventListener('click', () => {
-  const c = clients.find(c => c.id === editOrderCid);
-  const items = [];
-  PRODS.forEach(p => {
-    const qty = +q('oq-' + p.id)?.textContent || 0;
-    const ct = q('oct-' + p.id)?.value || 'קבועה';
-    if (qty > 0) items.push({ pid: p.id, qty, ct });
-    if (ct === 'הורדה קבועה' || ct === 'תוספת קבועה') {
-      const ex = c.order.find(o => o.pid === p.id);
-      if (ex) ex.qty = qty;
-      else if (qty > 0) c.order.push({ pid: p.id, qty });
-      if (qty === 0) c.order = c.order.filter(o => o.pid !== p.id);
-    }
+q('btn-save-order').addEventListener('click',()=>{
+  const c=clients.find(c=>c.id===editOrderCid);const items=[];
+  PRODS.forEach(p=>{const qty=+q('oq-'+p.id)?.textContent||0;const ct=q('oct-'+p.id)?.value||'קבועה';
+    if(qty>0)items.push({pid:p.id,qty,ct});
+    if(ct==='הורדה קבועה'||ct==='תוספת קבועה'){const ex=c.order.find(o=>o.pid===p.id);if(ex)ex.qty=qty;else if(qty>0)c.order.push({pid:p.id,qty});if(qty===0)c.order=c.order.filter(o=>o.pid!==p.id);}
   });
-  const returns = +q('oret').textContent || 0;
-  weekOrders[editOrderCid] = { items, skip: weekOrders[editOrderCid]?.skip || false, returns };
-  closeOv('ov-order');
-  renderWeek(); updateDashKpis();
-  toast('✅ הזמנה נשמרה');
+  weekOrders[editOrderCid]={items,skip:weekOrders[editOrderCid]?.skip||false,returns:+q('oret').textContent||0};
+  closeOv('ov-order');renderWeek();updateDashKpis();toast('✅ הזמנה נשמרה');
 });
 
-// ===== DELIVERY =====
-document.querySelectorAll('.fbtn[data-city]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.fbtn[data-city]').forEach(b => b.classList.remove('on'));
-    btn.classList.add('on');
-    delCity = btn.dataset.city;
-    renderDelivery();
-  });
-});
-q('del-search').addEventListener('input', e => { delSearch = e.target.value; renderDelivery(); });
-q('btn-sort-alpha').addEventListener('click', () => { delSort = 'alpha'; renderDelivery(); });
-q('btn-sort-city').addEventListener('click', () => { delSort = 'city'; renderDelivery(); });
-q('btn-print').addEventListener('click', () => toast('🖨️ שולח ל-PDF...'));
+document.querySelectorAll('.fbtn[data-city]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.fbtn[data-city]').forEach(x=>x.classList.remove('on'));b.classList.add('on');delCity=b.dataset.city;renderDelivery();
+}));
+q('del-search').addEventListener('input',e=>{delSearch=e.target.value;renderDelivery();});
+q('btn-sort-alpha').addEventListener('click',()=>{delSort='alpha';renderDelivery();});
+q('btn-sort-city').addEventListener('click',()=>{delSort='city';renderDelivery();});
+q('btn-print').addEventListener('click',()=>toast('🖨️ שולח ל-PDF...'));
 
-function renderDelivery() {
-  let list = clients.filter(c => !(weekOrders[c.id] && weekOrders[c.id].skip));
-  if (delCity !== 'all') list = list.filter(c => c.city === delCity);
-  if (delSearch) list = list.filter(c => c.store.includes(delSearch) || c.city.includes(delSearch));
-  if (delSort === 'alpha') list = [...list].sort((a, b) => a.store.localeCompare(b.store, 'he'));
-  else list = [...list].sort((a, b) => a.city.localeCompare(b.city, 'he'));
-
-  let invNum = 1040, html = '';
-  if (delSort === 'alpha') {
-    html += `<div class="tbl-wrap"><table><thead><tr><th>מס'</th><th>שם חנות</th><th>עיר</th><th>כתובת</th><th>הזמנה</th><th>יח'</th></tr></thead><tbody>`;
-    list.forEach(c => {
-      const items = weekOrders[c.id] ? weekOrders[c.id].items : c.order;
-      const tot = items.reduce((s, i) => s + i.qty, 0);
-      const sum = items.map(i => `${pname(i.pid)} ×${i.qty}`).join(' · ');
-      html += `<tr><td style="font-family:monospace">#${invNum++}</td><td><b>${c.store}</b></td><td>${c.city}</td><td>${c.addr}</td><td style="font-size:12px;color:var(--muted)">${sum}</td><td><b>${tot}</b></td></tr>`;
-    });
-    html += `</tbody></table></div>`;
-  } else {
-    const cities = [...new Set(list.map(c => c.city))].sort((a, b) => a.localeCompare(b, 'he'));
-    cities.forEach(city => {
-      const cc = list.filter(c => c.city === city);
-      html += `<div class="city-hdr">📍 ${city} — ${cc.length} תעודות</div><div class="tbl-wrap"><table><thead><tr><th>מס'</th><th>שם חנות</th><th>כתובת</th><th>הזמנה</th><th>יח'</th></tr></thead><tbody>`;
-      cc.forEach(c => {
-        const items = weekOrders[c.id] ? weekOrders[c.id].items : c.order;
-        const tot = items.reduce((s, i) => s + i.qty, 0);
-        const sum = items.map(i => `${pname(i.pid)} ×${i.qty}`).join(' · ');
-        html += `<tr><td style="font-family:monospace">#${invNum++}</td><td><b>${c.store}</b></td><td>${c.addr}</td><td style="font-size:12px;color:var(--muted)">${sum}</td><td><b>${tot}</b></td></tr>`;
-      });
-      html += `</tbody></table></div><div style="height:8px"></div>`;
-    });
+function renderDelivery(){
+  let list=clients.filter(c=>!(weekOrders[c.id]&&weekOrders[c.id].skip));
+  if(delCity!=='all')list=list.filter(c=>c.city===delCity);
+  if(delSearch)list=list.filter(c=>c.store.includes(delSearch)||c.city.includes(delSearch));
+  if(delSort==='alpha')list=[...list].sort((a,b)=>a.store.localeCompare(b.store,'he'));
+  else list=[...list].sort((a,b)=>a.city.localeCompare(b.city,'he'));
+  let num=1040,html='';
+  if(delSort==='alpha'){
+    html=`<div class="tbl-wrap"><table><thead><tr><th>מס'</th><th>חנות</th><th>עיר</th><th>כתובת</th><th>הזמנה</th><th>יח'</th><th>חתימה</th></tr></thead><tbody>`;
+    list.forEach(c=>{const it=weekOrders[c.id]?weekOrders[c.id].items:c.order;const t=it.reduce((s,i)=>s+i.qty,0);const sm=it.map(i=>`${pname(i.pid)}×${i.qty}`).join(' · ');
+      html+=`<tr><td style="font-family:monospace">#${num++}</td><td><b>${c.store}</b></td><td>${c.city}</td><td>${c.addr}</td><td style="font-size:11px;color:var(--muted)">${sm}</td><td><b>${t}</b></td><td style="color:var(--muted);font-size:10.5px">__________</td></tr>`;});
+    html+=`</tbody></table></div>`;
+  }else{
+    const cities=[...new Set(list.map(c=>c.city))].sort((a,b)=>a.localeCompare(b,'he'));
+    cities.forEach(city=>{const cc=list.filter(c=>c.city===city);
+      html+=`<div class="city-hdr">📍 ${city} — ${cc.length} תעודות</div><div class="tbl-wrap"><table><thead><tr><th>מס'</th><th>חנות</th><th>כתובת</th><th>הזמנה</th><th>יח'</th><th>חתימה</th></tr></thead><tbody>`;
+      cc.forEach(c=>{const it=weekOrders[c.id]?weekOrders[c.id].items:c.order;const t=it.reduce((s,i)=>s+i.qty,0);const sm=it.map(i=>`${pname(i.pid)}×${i.qty}`).join(' · ');
+        html+=`<tr><td style="font-family:monospace">#${num++}</td><td><b>${c.store}</b></td><td>${c.addr}</td><td style="font-size:11px;color:var(--muted)">${sm}</td><td><b>${t}</b></td><td style="color:var(--muted);font-size:10.5px">__________</td></tr>`;});
+      html+=`</tbody></table></div><div style="height:6px"></div>`;});
   }
-  if (!list.length) html = `<div class="card empty-state"><div class="icon">📭</div><p>אין תעודות להצגה</p></div>`;
-  q('del-list').innerHTML = html;
+  if(!list.length)html=`<div class="card empty-st"><div class="ico">📭</div><p style="font-size:12px">אין תעודות</p></div>`;
+  q('del-list').innerHTML=html;
 }
 
-// ===== INVOICES =====
-q('btn-gen-inv').addEventListener('click', () => { toast('🧾 מפיק חשבוניות...'); setTimeout(() => { renderInvoices(); toast('✅ הופקו ' + clients.length + ' חשבוניות!'); }, 700); });
-q('btn-export-xls').addEventListener('click', () => toast('📊 מייצא לאקסל...'));
-
-function renderInvoices() {
-  const tbody = q('inv-body');
-  tbody.innerHTML = '';
-  clients.forEach(c => {
-    const wo = weekOrders[c.id];
-    const items = wo ? wo.items : c.order;
-    const totalU = items.reduce((s, i) => s + i.qty, 0);
-    const returns = wo ? wo.returns || 0 : 0;
-    const net = Math.max(0, totalU - returns);
-    const totalP = items.reduce((s, i) => s + i.qty * pprice(i.pid), 0);
-    const netP = totalU > 0 ? Math.round(totalP * net / totalU) : 0;
-    const vat = c.vat ? Math.round(netP * 0.18) : 0;
-    const final = netP + vat;
-    const skip = wo && wo.skip;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><b>${c.inv}</b></td><td>${c.store}</td>
-      <td style="font-family:monospace">${skip ? '—' : totalU}</td>
-      <td style="font-family:monospace;color:var(--red)">${skip || !returns ? '—' : '−' + returns}</td>
-      <td style="font-family:monospace"><b>${skip ? '—' : net + ' יח\''}</b></td>
-      <td>${c.vat ? '<span class="bx bx-ok">עם מע"מ</span>' : '<span class="bx bx-gray">ללא</span>'}</td>
-      <td style="font-family:monospace"><b>${skip ? '—' : '₪' + final.toLocaleString()}</b></td>
-      <td>${skip ? '<span class="bx bx-gray">דילג</span>' : '<span class="bx bx-warn">ממתין</span>'}</td>
-      <td><button class="btn btn-out btn-sm inv-print-btn">הפק</button></td>`;
-    tbody.appendChild(tr);
-  });
-  tbody.querySelectorAll('.inv-print-btn').forEach(btn => {
-    btn.addEventListener('click', () => toast('🧾 מפיק חשבונית...'));
+q('btn-gen-inv').addEventListener('click',()=>{toast('🧾 מפיק...');setTimeout(()=>{renderInvoices();toast('✅ הופקו '+clients.length+' חשבוניות!');},600);});
+function renderInvoices(){
+  const tb=q('inv-body');tb.innerHTML='';
+  clients.forEach(c=>{
+    const wo=weekOrders[c.id];const plT=c.type==='מזדמן'?'מזדמן':'קבוע';
+    const items=wo?wo.items:c.order;const tU=items.reduce((s,i)=>s+i.qty,0);
+    const ret=wo?wo.returns||0:0;const net=Math.max(0,tU-ret);
+    const tP=items.reduce((s,i)=>s+i.qty*pprice(i.pid,plT),0);
+    const netP=tU>0?Math.round(tP*net/tU):0;const vat=c.vat?Math.round(netP*0.18):0;const fin=netP+vat;const skip=wo&&wo.skip;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${c.inv}</b></td><td>${c.store}</td>
+      <td style="font-family:monospace">${skip?'—':tU}</td>
+      <td style="font-family:monospace;color:var(--red)">${skip||!ret?'—':'−'+ret}</td>
+      <td style="font-family:monospace"><b>${skip?'—':net+' יח\''}</b></td>
+      <td>${c.vat?'<span class="bx bx-ok">כן</span>':'<span class="bx bx-gray">לא</span>'}</td>
+      <td style="font-family:monospace"><b>${skip?'—':'₪'+fin.toLocaleString()}</b></td>
+      <td>${skip?'<span class="bx bx-gray">דילג</span>':'<span class="bx bx-warn">ממתין</span>'}</td>
+      <td style="display:flex;gap:3px"><button class="btn btn-out btn-sm" onclick="toast('🧾 מפיק...')">הפק</button><button class="btn btn-out btn-sm" onclick="toast('📧!')">📧</button></td>`;
+    tb.appendChild(tr);
   });
 }
 
-// ===== PAYMENTS =====
-q('btn-add-pay').addEventListener('click', () => openPayModal(null));
-
-function renderPayments() {
-  const tbody = q('pay-body');
-  tbody.innerHTML = '';
-  clients.forEach(c => {
-    const d = c.debt || 0;
-    const cls = d === 0 ? 'bx-ok' : d >= 2000 ? 'bx-red' : 'bx-warn';
-    const icon = d === 0 ? '🟢' : d >= 2000 ? '🔴' : '🟡';
-    const label = d === 0 ? 'מסודר' : d >= 2000 ? 'חוב אדום' : 'בהמתנה';
-    const col = d === 0 ? 'var(--ok)' : d >= 2000 ? 'var(--red)' : 'var(--warn)';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><b>${c.store}</b></td>
-      <td style="font-family:monospace;font-weight:700;color:${col}">${d === 0 ? '—' : '₪' + d.toLocaleString()}</td>
-      <td>${c.pay}</td><td>${c.terms}</td>
+q('btn-add-pay').addEventListener('click',()=>openPayModal(null));
+function renderPayments(){
+  const tb=q('pay-body');tb.innerHTML='';
+  clients.forEach(c=>{
+    const d=c.debt||0;const cls=d===0?'bx-ok':d>=2000?'bx-red':'bx-warn';const icon=d===0?'🟢':d>=2000?'🔴':'🟡';const label=d===0?'מסודר':d>=2000?'חוב אדום':'בהמתנה';const col=d===0?'var(--ok)':d>=2000?'var(--red)':'var(--warn)';const months=d===0?'—':d>=2000?'2+':'1';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${c.store}</b></td>
+      <td style="font-family:monospace;font-weight:700;color:${col}">${d===0?'—':'₪'+d.toLocaleString()}</td>
+      <td>${months}</td><td>${c.pay}</td><td>${c.terms}</td>
       <td><span class="bx ${cls}">${icon} ${label}</span></td>
-      <td><button class="btn btn-out btn-sm pay-reg-btn" data-cid="${c.id}">רשום תשלום</button></td>`;
-    tbody.appendChild(tr);
+      <td style="display:flex;gap:3px">
+        <button class="btn btn-out btn-sm pay-btn" data-cid="${c.id}">תשלום</button>
+        ${d>0?`<button class="btn btn-out btn-sm" onclick="toast('📧 תזכורת נשלחה!')">📧</button>`:''}
+      </td>`;
+    tb.appendChild(tr);
   });
-  tbody.querySelectorAll('.pay-reg-btn').forEach(btn => {
-    btn.addEventListener('click', () => openPayModal(+btn.dataset.cid));
-  });
+  tb.querySelectorAll('.pay-btn').forEach(b=>b.addEventListener('click',()=>openPayModal(+b.dataset.cid)));
 }
-
-function openPayModal(cid) {
-  const sel = q('pay-client');
-  sel.innerHTML = clients.map(c => `<option value="${c.id}"${c.id === cid ? ' selected' : ''}>${c.store}</option>`).join('');
-  q('pay-date').value = new Date().toISOString().split('T')[0];
-  q('pay-amount').value = '';
-  q('pay-note').value = '';
-  openOv('ov-pay');
+function openPayModal(cid){
+  q('pay-client').innerHTML=clients.map(c=>`<option value="${c.id}"${c.id===cid?' selected':''}>${c.store}</option>`).join('');
+  q('pay-date').value=new Date().toISOString().split('T')[0];q('pay-amount').value='';q('pay-note').value='';openOv('ov-pay');
 }
-
-q('btn-save-pay').addEventListener('click', () => {
-  const cid = +q('pay-client').value;
-  const amount = +q('pay-amount').value || 0;
-  const c = clients.find(c => c.id === cid);
-  if (c && amount > 0) c.debt = Math.max(0, (c.debt || 0) - amount);
-  closeOv('ov-pay'); renderPayments(); updateDashKpis();
-  toast('✅ תשלום נרשם בהצלחה');
+q('btn-save-pay').addEventListener('click',()=>{
+  const cid=+q('pay-client').value;const amount=+q('pay-amount').value||0;
+  const c=clients.find(c=>c.id===cid);if(c&&amount>0)c.debt=Math.max(0,(c.debt||0)-amount);
+  closeOv('ov-pay');renderPayments();updateDashKpis();toast('✅ תשלום נרשם!');
 });
 
-// ===== CLIENTS =====
-q('btn-new-client').addEventListener('click', () => openClientModal(null));
-q('client-search').addEventListener('input', e => { renderClients(e.target.value); });
-
-function renderClients(search) {
-  let list = clients;
-  if (search) list = list.filter(c => c.store.includes(search) || c.inv.includes(search) || c.city.includes(search));
-  const tbody = q('clients-body');
-  tbody.innerHTML = '';
-  list.forEach(c => {
-    const sum = c.order.map(i => `${pname(i.pid)}×${i.qty}`).join(', ') || '—';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><b>${c.store}</b></td><td>${c.inv}</td><td>${c.city}</td>
-      <td>${c.vat ? '<span class="bx bx-ok">כן</span>' : '<span class="bx bx-gray">לא</span>'}</td>
-      <td>${c.pay}</td>
-      <td style="font-size:11.5px;color:var(--muted);max-width:200px">${sum}</td>
-      <td><button class="btn btn-out btn-sm edit-client-btn" data-cid="${c.id}">✏️ עריכה</button></td>`;
-    tbody.appendChild(tr);
-  });
-  tbody.querySelectorAll('.edit-client-btn').forEach(btn => {
-    btn.addEventListener('click', () => openClientModal(+btn.dataset.cid));
-  });
+function simulateBank(){
+  toast('📄 מעבד קובץ בנק...');
+  setTimeout(()=>{q('bank-result').style.display='';toast('✅ הצלבה הושלמה — 3 הותאמו, 1 ממתין');},1400);
+}
+function manualMatch(btn){
+  const name=prompt('שייך לאיזה לקוח?');
+  if(name){btn.closest('td').innerHTML=`<span class="bx bx-ok">✓ שויך ל-${name}</span>`;toast('✅ שויך ל-'+name);}
 }
 
-function openClientModal(cid) {
-  editClientId = cid;
-  const c = cid ? clients.find(c => c.id === cid) : null;
-  q('client-modal-title').textContent = c ? `עריכת ${c.store}` : 'לקוח חדש';
-  q('nc-store').value = c ? c.store : '';
-  q('nc-inv').value = c ? c.inv : '';
-  q('nc-city').value = c ? c.city : 'בני ברק';
-  q('nc-addr').value = c ? c.addr : '';
-  q('nc-phone').value = c ? c.phone : '';
-  q('nc-vat').value = c ? (c.vat ? 'yes' : 'no') : 'yes';
-  q('nc-pay').value = c ? c.pay : 'העברה בנקאית';
-  q('nc-terms').value = c ? c.terms : 'שוטף';
-  const pl = q('nc-prods');
-  pl.innerHTML = '';
-  PRODS.forEach(p => {
-    const ex = c ? c.order.find(o => o.pid === p.id) : null;
-    const div = document.createElement('div');
-    div.className = 'oi';
-    div.innerHTML = `
-      <div class="name">${p.name} <span class="price">₪${p.price}</span></div>
-      <div class="qc">
-        <button class="qbtn" data-npid="${p.id}" data-d="-1">−</button>
-        <div class="qnum" id="nq-${p.id}">${ex ? ex.qty : 0}</div>
-        <button class="qbtn" data-npid="${p.id}" data-d="1">+</button>
-      </div>`;
+q('btn-new-client').addEventListener('click',()=>openClientModal(null));
+q('client-search').addEventListener('input',e=>renderClients(e.target.value));
+function renderClients(search){
+  let list=clients.filter(c=>!c.skip);
+  if(search)list=list.filter(c=>c.store.includes(search)||c.inv.includes(search)||c.city.includes(search));
+  const tb=q('clients-body');tb.innerHTML='';
+  list.forEach(c=>{
+    const plB=c.type==='מזדמן'?'<span class="pl-occ">מזדמן</span>':'<span class="pl-fix">קבוע</span>';
+    const sum=c.order.map(i=>`${pname(i.pid)}×${i.qty}`).join(', ')||'—';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${c.store}</b></td><td>${c.inv}</td><td>${c.city}</td><td>${plB}</td>
+      <td>${c.vat?'<span class="bx bx-ok">כן</span>':'<span class="bx bx-gray">לא</span>'}</td>
+      <td>${c.pay}</td><td style="font-size:10.5px;color:var(--muted);max-width:160px">${sum}</td>
+      <td>${c.debt>0?`<span style="font-family:monospace;color:${c.debt>=2000?'var(--red)':'var(--warn)'}">₪${c.debt.toLocaleString()}</span>`:'—'}</td>
+      <td style="display:flex;gap:2px">
+        <button class="btn btn-out btn-sm ec" data-cid="${c.id}">✏️</button>
+        <button class="btn btn-out btn-sm fc" data-cid="${c.id}">🔒</button>
+      </td>`;
+    tb.appendChild(tr);
+  });
+  tb.querySelectorAll('.ec').forEach(b=>b.addEventListener('click',()=>openClientModal(+b.dataset.cid)));
+  tb.querySelectorAll('.fc').forEach(b=>b.addEventListener('click',()=>{const c=clients.find(c=>c.id===+b.dataset.cid);if(c){c.skip=true;renderClients();toast('🔒 '+c.store+' הוקפא');}}));
+}
+function openClientModal(cid){
+  editClientId=cid;const c=cid?clients.find(c=>c.id===cid):null;
+  q('cm-title').textContent=c?`עריכת ${c.store}`:'לקוח חדש';
+  q('nc-store').value=c?c.store:'';q('nc-inv').value=c?c.inv:'';q('nc-city').value=c?c.city:'בני ברק';
+  q('nc-addr').value=c?c.addr:'';q('nc-phone').value=c?c.phone:'';
+  q('nc-type').value=c?c.type:'קבוע';q('nc-vat').value=c?(c.vat?'yes':'no'):'yes';
+  q('nc-pay').value=c?c.pay:'העברה בנקאית';q('nc-terms').value=c?c.terms:'שוטף';
+  const pl=q('nc-prods');pl.innerHTML='';
+  PRODS.forEach(p=>{
+    const ex=c?c.order.find(o=>o.pid===p.id):null;const div=document.createElement('div');div.className='oi';
+    div.innerHTML=`<div class="nm">${p.name} <span class="pr">קבוע ₪${p.pF} / מזדמן ₪${p.pO}</span></div>
+      <div class="qc"><button class="qbtn" data-np="${p.id}" data-d="-1">−</button><div class="qnum" id="nq-${p.id}">${ex?ex.qty:0}</div><button class="qbtn" data-np="${p.id}" data-d="1">+</button></div>`;
     pl.appendChild(div);
   });
-  pl.querySelectorAll('.qbtn[data-npid]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const el = q('nq-' + btn.dataset.npid);
-      let v = +el.textContent + +btn.dataset.d;
-      if (v < 0) v = 0;
-      el.textContent = v;
-    });
-  });
+  pl.querySelectorAll('.qbtn[data-np]').forEach(b=>b.addEventListener('click',()=>{const el=q('nq-'+b.dataset.np);let v=+el.textContent+ +b.dataset.d;if(v<0)v=0;el.textContent=v;}));
   openOv('ov-client');
 }
-
-q('btn-save-client').addEventListener('click', () => {
-  const store = q('nc-store').value.trim();
-  if (!store) { toast('⚠️ חסר שם חנות'); return; }
-  const order = [];
-  PRODS.forEach(p => {
-    const qty = +q('nq-' + p.id)?.textContent || 0;
-    if (qty > 0) order.push({ pid: p.id, qty, ct: 'קבועה' });
-  });
-  const data = {
-    store, inv: q('nc-inv').value || store,
-    city: q('nc-city').value, addr: q('nc-addr').value,
-    phone: q('nc-phone').value,
-    vat: q('nc-vat').value === 'yes',
-    pay: q('nc-pay').value,
-    terms: q('nc-terms').value,
-    order
-  };
-  if (editClientId) {
-    const idx = clients.findIndex(c => c.id === editClientId);
-    if (idx >= 0) clients[idx] = { ...clients[idx], ...data };
-  } else {
-    clients.push({ id: nextId(), debt: 0, ...data });
-  }
-  closeOv('ov-client'); renderClients(); updateDashKpis();
-  toast(editClientId ? '✅ לקוח עודכן' : '✅ לקוח נוסף בהצלחה');
+q('btn-save-client').addEventListener('click',()=>{
+  const store=q('nc-store').value.trim();if(!store){toast('⚠️ חסר שם חנות');return;}
+  const order=[];PRODS.forEach(p=>{const qty=+q('nq-'+p.id)?.textContent||0;if(qty>0)order.push({pid:p.id,qty,ct:'קבועה'});});
+  const data={store,inv:q('nc-inv').value||store,city:q('nc-city').value,addr:q('nc-addr').value,phone:q('nc-phone').value,type:q('nc-type').value,vat:q('nc-vat').value==='yes',pay:q('nc-pay').value,terms:q('nc-terms').value,order};
+  if(editClientId){const idx=clients.findIndex(c=>c.id===editClientId);if(idx>=0)clients[idx]={...clients[idx],...data};}
+  else clients.push({id:nxtId(),debt:0,...data});
+  closeOv('ov-client');renderClients();updateDashKpis();toast(editClientId?'✅ עודכן':'✅ נוסף!');
 });
 
-// ===== INIT =====
+function paySupplier(btn,name,amount){
+  btn.textContent='✓ שולם';btn.disabled=true;btn.className='btn btn-out btn-sm';
+  btn.closest('tr').querySelector('td:nth-child(10)').innerHTML='<span class="bx bx-ok">✓ שולם</span>';
+  toast('✅ תשלום ל-'+name+' (₪'+amount.toLocaleString()+') נרשם!');
+}
+function closeCredit(btn,name,amount){
+  btn.closest('tr').querySelector('td:nth-child(6)').innerHTML='<span class="bx bx-ok">✅ נסגר</span>';
+  btn.textContent='סגור';btn.disabled=true;toast('✅ זיכוי מ-'+name+' (₪'+amount+') נסגר');
+}
+function addCredit(){
+  const sup=prompt('שם ספק:');if(!sup)return;
+  const reason=prompt('סיבת הזיכוי:');if(!reason)return;
+  const amount=+prompt('סכום ₪:');if(!amount)return;
+  const tb=q('credits-body');const today=new Date().toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit'});
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><b>${sup}</b></td><td>${reason}</td><td style="font-family:monospace;color:var(--ok)">₪${amount}</td><td>${today}</td><td>0</td><td><span class="bx bx-gray">חדש</span></td><td><button class="btn btn-ok btn-sm" onclick="closeCredit(this,'${sup}',${amount})">✅ סגור</button></td>`;
+  tb.appendChild(tr);toast('✅ זיכוי נרשם מ-'+sup);
+}
+
+let scanTmr;
+function startScan(){
+  q('scan-proc').style.display='';q('scan-form').style.display='none';q('scan-blurry').style.display='none';
+  toast('📷 OCR מעבד...');clearTimeout(scanTmr);
+  scanTmr=setTimeout(()=>{
+    q('scan-proc').style.display='none';
+    if(Math.random()>0.15){q('scan-form').style.display='';toast('✅ OCR הצליח — בדקי ואשרי');}
+    else{q('scan-blurry').style.display='';toast('⚠️ מטושטש — נוסף לתור ידני');}
+  },1500);
+}
+function saveScan(){
+  const sup=q('ocr-sup').value||'ספק';const total=+q('ocr-tot').value||0;const cat=q('ocr-cat').value;const num=q('ocr-num').value;
+  expenses.push({id:expenses.length+1,date:new Date().toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit'}),name:sup+' — '+num,cat,amount:total,vat:true,pay:'להעברה',file:sup+'-'+num+'.pdf'});
+  const tb=q('scan-hist');if(tb){const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${new Date().toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit'})}</td><td>${sup}</td><td style="font-family:monospace">${num}</td><td style="font-family:monospace">₪${total.toLocaleString()}</td><td style="font-size:10.5px;color:var(--ok)">📁 נשמר</td><td><span class="bx bx-ok">✓ נרשם</span></td>`;
+    tb.prepend(tr);}
+  q('scan-form').style.display='none';renderExpenses();toast('✅ חשבונית נרשמה + תויקה ב-Drive (אוגוסט 2026)');
+}
+
+let psTmr;
+function startPayslip(){
+  q('ps-proc').style.display='';q('ps-form').style.display='none';toast('📄 OCR מעבד...');clearTimeout(psTmr);
+  psTmr=setTimeout(()=>{q('ps-proc').style.display='none';q('ps-form').style.display='';toast('✅ OCR זיהה — בדקי ואשרי');},1400);
+}
+function savePayslip(){
+  const name=q('ps-name').value;const gross=+q('ps-gross').value;const net=+q('ps-net').value;const bli=+q('ps-bli').value;const tax=+q('ps-tax').value;
+  const tb=q('ps-grid-body');if(tb){
+    const existing=[...tb.querySelectorAll('td:first-child b')].find(el=>el.textContent===name);
+    if(existing){const row=existing.closest('tr');row.cells[1].textContent='₪'+gross.toLocaleString();row.cells[3].textContent='₪'+net.toLocaleString();row.cells[6].innerHTML='<span class="bx bx-ok">✓ נרשם</span>';}
+    else{const tr=document.createElement('tr');tr.innerHTML=`<td><b>${name}</b></td><td style="font-family:monospace">₪${gross.toLocaleString()}</td><td style="font-family:monospace">—</td><td style="font-family:monospace">₪${net.toLocaleString()}</td><td style="font-family:monospace">₪${bli.toLocaleString()}</td><td style="font-family:monospace">₪${tax.toLocaleString()}</td><td><span class="bx bx-ok">✓ נרשם</span></td>`;tb.appendChild(tr);}
+  }
+  expenses.push({id:expenses.length+1,date:new Date().toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit'}),name:'משכורת — '+name,cat:'משכורות',amount:net,vat:false,pay:'העברה',file:''});
+  q('ps-form').style.display='none';renderExpenses();toast('✅ תלוש נרשם בגיליון משכורות!');
+}
+
+function renderExpenses(){
+  const tb=q('exp-body');if(!tb)return;
+  const cf=q('exp-cat-f')?.value||'';
+  const list=cf?expenses.filter(e=>e.cat===cf):expenses;
+  tb.innerHTML='';
+  list.forEach(e=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${e.date}</td><td><b>${e.name}</b></td><td><span class="bx bx-gray">${e.cat}</span></td>
+      <td style="font-family:monospace">₪${e.amount.toLocaleString()}</td>
+      <td>${e.vat?'<span class="bx bx-ok">כן</span>':'<span class="bx bx-gray">לא</span>'}</td>
+      <td>${e.pay}</td>
+      <td>${e.file?`<span style="color:var(--ok);font-size:10.5px">📎 ${e.file}</span>`:'<span style="color:var(--muted);font-size:10.5px">—</span>'}</td>
+      <td><button class="btn btn-out btn-sm" onclick="toast('✏️')">✏️</button></td>`;
+    tb.appendChild(tr);
+  });
+}
+function addExpense(){
+  const name=prompt('שם הוצאה:');if(!name)return;
+  const amount=+prompt('סכום (₪):');if(!amount)return;
+  expenses.push({id:expenses.length+1,date:new Date().toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit'}),name,cat:'כללי',amount,vat:false,pay:'—',file:''});
+  renderExpenses();toast('✅ הוצאה נוספה');
+}
+
+function renderDriver(){
+  const empty=q('drv-empty');const list=q('drv-list');if(!empty||!list)return;
+  if(!weekOpen){empty.style.display='';list.style.display='none';return;}
+  empty.style.display='none';list.style.display='';
+  const active=clients.filter(c=>!(weekOrders[c.id]&&weekOrders[c.id].skip));
+  q('drv-total').textContent=active.length;
+  list.innerHTML=active.map((c,idx)=>{
+    const wo=weekOrders[c.id]||{items:c.order.map(o=>({...o})),returns:0};
+    const items=wo.items.map(i=>`<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #F5F0E8;font-size:12px"><span>${pname(i.pid)}</span><b>${i.qty} יח׳</b></div>`).join('');
+    return `<div class="card" id="dcard-${c.id}">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div><b style="font-size:13px">${c.store}</b> <span style="font-size:11px;color:var(--muted)">${c.city} · ${c.addr}</span></div>
+        <span style="font-family:monospace;font-size:11px;color:var(--muted)">#${1040+idx}</span>
+      </div>
+      <div style="margin-bottom:8px">${items}</div>
+      <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:600">↩</span>
+        <button class="qbtn" onclick="drvRet(${c.id},-1)">−</button>
+        <div class="qnum" id="dret-${c.id}">${wo.returns||0}</div>
+        <button class="qbtn" onclick="drvRet(${c.id},1)">+</button>
+        <button class="btn btn-ok btn-sm" id="ddlv-${c.id}" onclick="drvDeliver(${c.id},${idx})" style="margin-right:auto">✅ סופק</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function drvRet(cid,d){
+  if(!weekOrders[cid])weekOrders[cid]={items:clients.find(c=>c.id===cid).order.map(o=>({...o})),skip:false,returns:0};
+  weekOrders[cid].returns=Math.max(0,(weekOrders[cid].returns||0)+d);
+  const el=q('dret-'+cid);if(el)el.textContent=weekOrders[cid].returns;
+  q('drv-ret').textContent=Object.values(weekOrders).reduce((s,w)=>s+(w.returns||0),0);
+  toast('↩ חזרה עודכנה — נשמר');
+}
+function drvDeliver(cid,idx){
+  const btn=q('ddlv-'+cid);if(btn){btn.textContent='✔ סופק';btn.disabled=true;btn.style.background='var(--ok)';}
+  q('drv-done').textContent=+q('drv-done').textContent+1;
+  toast('✅ תעודה #'+(1040+idx)+' סופקה');
+}
+
+function renderCharts(){
+  const cm=q('chart-monthly');
+  if(cm&&!cm.dataset.drawn){
+    cm.dataset.drawn='1';
+    const months=[{m:'מאי',v:34200},{m:'יוני',v:38800},{m:'יולי',v:28420},{m:'אוג',v:14200}];
+    const max=Math.max(...months.map(m=>m.v));
+    cm.innerHTML=months.map(m=>`<div class="bar-col"><div class="bv">₪${(m.v/1000).toFixed(0)}K</div><div class="bar" style="height:${Math.round(m.v/max*65)}px;background:var(--gold);opacity:${m.m==='יולי'?1:0.55}"></div><div class="bl">${m.m}</div></div>`).join('');
+  }
+  const ce=q('chart-expenses');
+  if(ce&&!ce.dataset.drawn){
+    ce.dataset.drawn='1';
+    const data=[{l:'חומרי גלם',v:17640,pct:57,c:'var(--gold)'},{l:'משכורות',v:8780,pct:28,c:'#8B7355'},{l:'ביטוח ל.',v:1840,pct:6,c:'#A87A28'},{l:'משלוחים',v:1200,pct:4,c:'#6E6455'},{l:'אחר',v:1400,pct:5,c:'#C9C0AA'}];
+    ce.innerHTML=data.map(d=>`<div class="hbar"><div class="hl"><span>${d.l}</span><span style="font-family:monospace">₪${(d.v/1000).toFixed(1)}K (${d.pct}%)</span></div><div class="ht"><div class="hf" style="width:${d.pct}%;background:${d.c}"></div></div></div>`).join('');
+  }
+}
+
 updateDashKpis();
-renderClients();
+renderClients();renderDelivery();renderInvoices();renderPayments();renderExpenses();
 </script>
 </body>
 </html>
